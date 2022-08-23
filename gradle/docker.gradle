@@ -9,7 +9,7 @@ jib {
         }
     }
     to {
-        image = "ppanticona/jyys:1.0.0"
+        image = "ppanticona/fabio:1.0.0"
         auth {
             username = 'ppanticona'
             password = 'C4milit42'
