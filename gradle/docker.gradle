@@ -9,7 +9,11 @@ jib {
         }
     }
     to {
-        image = "fabio:latest"
+        image = "ppanticona/jyys:1.0.0"
+        auth {
+            username = 'ppanticona'
+            password = 'C4milit42'
+        }
     }
     container {
         entrypoint = ["bash", "-c", "/entrypoint.sh"]
