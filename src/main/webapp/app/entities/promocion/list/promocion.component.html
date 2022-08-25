@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="PromocionHeading">
+    <span>Promocions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-promocion"
+        [routerLink]="['/promocion/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Promocion </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="promocions?.length === 0">
+    <span>No Promocions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="promocions && promocions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipPromocion"><span>Tip Promocion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="val1"><span>Val 1</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="val2"><span>Val 2</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="val3"><span>Val 3</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="maxProm"><span>Max Prom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecIniVig"><span>Fec Ini Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecFinVig"><span>Fec Fin Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="comentarios"><span>Comentarios</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let promocion of promocions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/promocion', promocion.id, 'view']">{{ promocion.id }}</a>
+          </td>
+          <td>{{ promocion.tipPromocion }}</td>
+          <td>{{ promocion.val1 }}</td>
+          <td>{{ promocion.val2 }}</td>
+          <td>{{ promocion.val3 }}</td>
+          <td>{{ promocion.maxProm }}</td>
+          <td>{{ promocion.fecIniVig | formatMediumDatetime }}</td>
+          <td>{{ promocion.fecFinVig | formatMediumDatetime }}</td>
+          <td>{{ promocion.comentarios }}</td>
+          <td>{{ promocion.estado }}</td>
+          <td>{{ promocion.version }}</td>
+          <td>{{ promocion.indDel }}</td>
+          <td>{{ promocion.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ promocion.usuCrea }}</td>
+          <td>{{ promocion.ipCrea }}</td>
+          <td>{{ promocion.fecModif | formatMediumDatetime }}</td>
+          <td>{{ promocion.usuModif }}</td>
+          <td>{{ promocion.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/promocion', promocion.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/promocion', promocion.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(promocion)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

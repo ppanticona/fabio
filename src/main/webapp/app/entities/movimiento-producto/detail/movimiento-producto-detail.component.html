@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="movimientoProducto">
+      <h2 data-cy="movimientoProductoDetailsHeading"><span>Movimiento Producto</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.id }}</span>
+        </dd>
+        <dt><span>Tip Movimiento</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.tipMovimiento }}</span>
+        </dd>
+        <dt><span>Tip 2 Movimiento</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.tip2Movimiento }}</span>
+        </dd>
+        <dt><span>Cnt</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.cnt }}</span>
+        </dd>
+        <dt><span>Lote</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.lote }}</span>
+        </dd>
+        <dt><span>Fec Movimiento</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.fecMovimiento | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ movimientoProducto.ipModif }}</span>
+        </dd>
+        <dt><span>Producto</span></dt>
+        <dd>
+          <div *ngIf="movimientoProducto.producto">
+            <a [routerLink]="['/producto', movimientoProducto.producto.id, 'view']">{{ movimientoProducto.producto?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Reg Venta</span></dt>
+        <dd>
+          <div *ngIf="movimientoProducto.regVenta">
+            <a [routerLink]="['/reg-venta', movimientoProducto.regVenta.id, 'view']">{{ movimientoProducto.regVenta?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Reg Compras</span></dt>
+        <dd>
+          <div *ngIf="movimientoProducto.regCompras">
+            <a [routerLink]="['/reg-compras', movimientoProducto.regCompras.id, 'view']">{{ movimientoProducto.regCompras?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/movimiento-producto', movimientoProducto.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

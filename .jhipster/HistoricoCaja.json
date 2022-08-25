@@ -1,0 +1,114 @@
+{
+  "applications": "*",
+  "changelogDate": "20220825174948",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "historico_caja",
+  "fields": [
+    {
+      "fieldName": "fecIniVig",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecFinVig",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montoInicialSoles",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montoMaximoSoles",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montoRealSoles",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "montoInicialDolares",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montoMaximoDolares",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montoRealDolares",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "montoRealOtros",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "usuarioAsignado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comentario",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "indDel",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecCrea",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "usuCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ipCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecModif",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "usuModif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ipModif",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "HistoricoCaja",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "caja",
+      "relationshipName": "caja",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

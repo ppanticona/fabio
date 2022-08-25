@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="cliente">
+      <h2 data-cy="clienteDetailsHeading"><span>Cliente</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ cliente.id }}</span>
+        </dd>
+        <dt><span>Tip Doc Cli</span></dt>
+        <dd>
+          <span>{{ cliente.tipDocCli }}</span>
+        </dd>
+        <dt><span>Nro Doc Cli</span></dt>
+        <dd>
+          <span>{{ cliente.nroDocCli }}</span>
+        </dd>
+        <dt><span>Nombres Cli</span></dt>
+        <dd>
+          <span>{{ cliente.nombresCli }}</span>
+        </dd>
+        <dt><span>Apellidos Cli</span></dt>
+        <dd>
+          <span>{{ cliente.apellidosCli }}</span>
+        </dd>
+        <dt><span>Tel 1</span></dt>
+        <dd>
+          <span>{{ cliente.tel1 }}</span>
+        </dd>
+        <dt><span>Tel 2</span></dt>
+        <dd>
+          <span>{{ cliente.tel2 }}</span>
+        </dd>
+        <dt><span>Correo</span></dt>
+        <dd>
+          <span>{{ cliente.correo }}</span>
+        </dd>
+        <dt><span>Direccion</span></dt>
+        <dd>
+          <span>{{ cliente.direccion }}</span>
+        </dd>
+        <dt><span>Ref Direccion</span></dt>
+        <dd>
+          <span>{{ cliente.refDireccion }}</span>
+        </dd>
+        <dt><span>Distrito</span></dt>
+        <dd>
+          <span>{{ cliente.distrito }}</span>
+        </dd>
+        <dt><span>Fec Nac</span></dt>
+        <dd>
+          <span>{{ cliente.fecNac | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+          <span>{{ cliente.estado }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ cliente.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ cliente.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ cliente.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ cliente.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ cliente.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ cliente.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ cliente.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ cliente.ipModif }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/cliente', cliente.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

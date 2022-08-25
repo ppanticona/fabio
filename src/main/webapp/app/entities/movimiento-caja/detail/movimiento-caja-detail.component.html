@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="movimientoCaja">
+      <h2 data-cy="movimientoCajaDetailsHeading"><span>Movimiento Caja</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.id }}</span>
+        </dd>
+        <dt><span>Tip Movimiento</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.tipMovimiento }}</span>
+        </dd>
+        <dt><span>Monto</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.monto }}</span>
+        </dd>
+        <dt><span>Tip Moneda</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.tipMoneda }}</span>
+        </dd>
+        <dt><span>Fec Movimiento</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.fecMovimiento | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ movimientoCaja.ipModif }}</span>
+        </dd>
+        <dt><span>Historico Caja</span></dt>
+        <dd>
+          <div *ngIf="movimientoCaja.historicoCaja">
+            <a [routerLink]="['/historico-caja', movimientoCaja.historicoCaja.id, 'view']">{{ movimientoCaja.historicoCaja?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Autorizacion</span></dt>
+        <dd>
+          <div *ngIf="movimientoCaja.autorizacion">
+            <a [routerLink]="['/autorizacion', movimientoCaja.autorizacion.id, 'view']">{{ movimientoCaja.autorizacion?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/movimiento-caja', movimientoCaja.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

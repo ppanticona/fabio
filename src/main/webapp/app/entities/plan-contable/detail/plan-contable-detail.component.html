@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="planContable">
+      <h2 data-cy="planContableDetailsHeading"><span>Plan Contable</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ planContable.id }}</span>
+        </dd>
+        <dt><span>Tip Plan</span></dt>
+        <dd>
+          <span>{{ planContable.tipPlan }}</span>
+        </dd>
+        <dt><span>Niv Plan</span></dt>
+        <dd>
+          <span>{{ planContable.nivPlan }}</span>
+        </dd>
+        <dt><span>Cod Plan</span></dt>
+        <dd>
+          <span>{{ planContable.codPlan }}</span>
+        </dd>
+        <dt><span>Desc Cuenta</span></dt>
+        <dd>
+          <span>{{ planContable.descCuenta }}</span>
+        </dd>
+        <dt><span>Anho Plan</span></dt>
+        <dd>
+          <span>{{ planContable.anhoPlan }}</span>
+        </dd>
+        <dt><span>Reso Plan</span></dt>
+        <dd>
+          <span>{{ planContable.resoPlan }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ planContable.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ planContable.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ planContable.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ planContable.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ planContable.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ planContable.ipModif }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/plan-contable', planContable.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

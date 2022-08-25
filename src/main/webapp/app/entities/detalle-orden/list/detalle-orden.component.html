@@ -1,0 +1,122 @@
+<div>
+  <h2 id="page-heading" data-cy="DetalleOrdenHeading">
+    <span>Detalle Ordens</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-detalle-orden"
+        [routerLink]="['/detalle-orden/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Detalle Orden </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="detalleOrdens?.length === 0">
+    <span>No Detalle Ordens found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="detalleOrdens && detalleOrdens.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cantidad"><span>Cantidad</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="valUni"><span>Val Uni</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dcto"><span>Dcto</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="subtotal"><span>Subtotal</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="observacion"><span>Observacion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="orden.id"><span>Orden</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="producto.id"><span>Producto</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="promocion.id"><span>Promocion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalleOrden of detalleOrdens; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/detalle-orden', detalleOrden.id, 'view']">{{ detalleOrden.id }}</a>
+          </td>
+          <td>{{ detalleOrden.cantidad }}</td>
+          <td>{{ detalleOrden.valUni }}</td>
+          <td>{{ detalleOrden.dcto }}</td>
+          <td>{{ detalleOrden.subtotal }}</td>
+          <td>{{ detalleOrden.observacion }}</td>
+          <td>{{ detalleOrden.estado }}</td>
+          <td>{{ detalleOrden.version }}</td>
+          <td>{{ detalleOrden.indDel }}</td>
+          <td>{{ detalleOrden.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ detalleOrden.usuCrea }}</td>
+          <td>{{ detalleOrden.ipCrea }}</td>
+          <td>{{ detalleOrden.fecModif | formatMediumDatetime }}</td>
+          <td>{{ detalleOrden.usuModif }}</td>
+          <td>{{ detalleOrden.ipModif }}</td>
+          <td>
+            <div *ngIf="detalleOrden.orden">
+              <a [routerLink]="['/orden', detalleOrden.orden.id, 'view']">{{ detalleOrden.orden?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="detalleOrden.producto">
+              <a [routerLink]="['/producto', detalleOrden.producto.id, 'view']">{{ detalleOrden.producto?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="detalleOrden.promocion">
+              <a [routerLink]="['/promocion', detalleOrden.promocion.id, 'view']">{{ detalleOrden.promocion?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/detalle-orden', detalleOrden.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/detalle-orden', detalleOrden.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(detalleOrden)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

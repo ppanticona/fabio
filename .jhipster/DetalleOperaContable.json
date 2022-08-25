@@ -1,0 +1,70 @@
+{
+  "applications": "*",
+  "changelogDate": "20220825174945",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "detalle_opera_contable",
+  "fields": [
+    {
+      "fieldName": "operador",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valorOperacion",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipMovimiento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fecCrea",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "usuCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ipCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecModif",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "usuModif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ipModif",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DetalleOperaContable",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "planContable",
+      "relationshipName": "planContable",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "operaContable",
+      "relationshipName": "operaContable",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

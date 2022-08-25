@@ -1,0 +1,122 @@
+<div>
+  <h2 id="page-heading" data-cy="EmpleadoHeading">
+    <span>Empleados</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-empleado"
+        [routerLink]="['/empleado/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Empleado </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="empleados?.length === 0">
+    <span>No Empleados found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="empleados && empleados.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipDocEmp"><span>Tip Doc Emp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroDocEmp"><span>Nro Doc Emp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nombresEmp"><span>Nombres Emp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="apellidosEmp"><span>Apellidos Emp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="categoria"><span>Categoria</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tel1"><span>Tel 1</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tel2"><span>Tel 2</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="correo"><span>Correo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="direccion"><span>Direccion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="refDirecc"><span>Ref Direcc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="distrito"><span>Distrito</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecIngreso"><span>Fec Ingreso</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecNac"><span>Fec Nac</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="userId"><span>User Id</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let empleado of empleados; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/empleado', empleado.id, 'view']">{{ empleado.id }}</a>
+          </td>
+          <td>{{ empleado.tipDocEmp }}</td>
+          <td>{{ empleado.nroDocEmp }}</td>
+          <td>{{ empleado.nombresEmp }}</td>
+          <td>{{ empleado.apellidosEmp }}</td>
+          <td>{{ empleado.categoria }}</td>
+          <td>{{ empleado.tel1 }}</td>
+          <td>{{ empleado.tel2 }}</td>
+          <td>{{ empleado.correo }}</td>
+          <td>{{ empleado.direccion }}</td>
+          <td>{{ empleado.refDirecc }}</td>
+          <td>{{ empleado.distrito }}</td>
+          <td>{{ empleado.fecIngreso | formatMediumDatetime }}</td>
+          <td>{{ empleado.fecNac | formatMediumDatetime }}</td>
+          <td>{{ empleado.userId }}</td>
+          <td>{{ empleado.estado }}</td>
+          <td>{{ empleado.version }}</td>
+          <td>{{ empleado.indDel }}</td>
+          <td>{{ empleado.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ empleado.usuCrea }}</td>
+          <td>{{ empleado.ipCrea }}</td>
+          <td>{{ empleado.fecModif | formatMediumDatetime }}</td>
+          <td>{{ empleado.usuModif }}</td>
+          <td>{{ empleado.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/empleado', empleado.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/empleado', empleado.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(empleado)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

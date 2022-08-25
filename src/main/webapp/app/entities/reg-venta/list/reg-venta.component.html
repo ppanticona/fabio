@@ -1,0 +1,170 @@
+<div>
+  <h2 id="page-heading" data-cy="RegVentaHeading">
+    <span>Reg Ventas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-reg-venta"
+        [routerLink]="['/reg-venta/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Reg Venta </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="regVentas?.length === 0">
+    <span>No Reg Ventas found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="regVentas && regVentas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="periodo"><span>Periodo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cuo"><span>Cuo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="asientContab"><span>Asient Contab</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecEmiComp"><span>Fec Emi Comp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecVencComp"><span>Fec Venc Comp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipComp"><span>Tip Comp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroSerieComp"><span>Nro Serie Comp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroComp"><span>Nro Comp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="consoDia"><span>Conso Dia</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipDocCli"><span>Tip Doc Cli</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroDocCli"><span>Nro Doc Cli</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="apeRazSocCli"><span>Ape Raz Soc Cli</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="valFacExpor"><span>Val Fac Expor</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="baseImpOperGrav"><span>Base Imp Oper Grav</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dsctoBaseImp"><span>Dscto Base Imp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="igvIpm"><span>Igv Ipm</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dsctoIgvIpm"><span>Dscto Igv Ipm</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="impOpeExo"><span>Imp Ope Exo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="impTotOpeInafec"><span>Imp Tot Ope Inafec</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="impSecCons"><span>Imp Sec Cons</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="baseImpArroz"><span>Base Imp Arroz</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="impVentArroz"><span>Imp Vent Arroz</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="otrosNoBaseImp"><span>Otros No Base Imp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="importeTotalComp"><span>Importe Total Comp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codMoneda"><span>Cod Moneda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipCambio"><span>Tip Cambio</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecEmiModif"><span>Fec Emi Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipCompModif"><span>Tip Comp Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroSerieCompModif"><span>Nro Serie Comp Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroCompModif"><span>Nro Comp Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="identContrato"><span>Ident Contrato</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="errTipUno"><span>Err Tip Uno</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indCompVancMp"><span>Ind Comp Vanc Mp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estadoOperaCancMp"><span>Estado Opera Canc Mp</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="campoLibre"><span>Campo Libre</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="formPago"><span>Form Pago</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="moneda"><span>Moneda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="orden.id"><span>Orden</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let regVenta of regVentas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/reg-venta', regVenta.id, 'view']">{{ regVenta.id }}</a>
+          </td>
+          <td>{{ regVenta.periodo }}</td>
+          <td>{{ regVenta.cuo }}</td>
+          <td>{{ regVenta.asientContab }}</td>
+          <td>{{ regVenta.fecEmiComp | formatMediumDatetime }}</td>
+          <td>{{ regVenta.fecVencComp | formatMediumDatetime }}</td>
+          <td>{{ regVenta.tipComp }}</td>
+          <td>{{ regVenta.nroSerieComp }}</td>
+          <td>{{ regVenta.nroComp }}</td>
+          <td>{{ regVenta.consoDia }}</td>
+          <td>{{ regVenta.tipDocCli }}</td>
+          <td>{{ regVenta.nroDocCli }}</td>
+          <td>{{ regVenta.apeRazSocCli }}</td>
+          <td>{{ regVenta.valFacExpor }}</td>
+          <td>{{ regVenta.baseImpOperGrav }}</td>
+          <td>{{ regVenta.dsctoBaseImp }}</td>
+          <td>{{ regVenta.igvIpm }}</td>
+          <td>{{ regVenta.dsctoIgvIpm }}</td>
+          <td>{{ regVenta.impOpeExo }}</td>
+          <td>{{ regVenta.impTotOpeInafec }}</td>
+          <td>{{ regVenta.impSecCons }}</td>
+          <td>{{ regVenta.baseImpArroz }}</td>
+          <td>{{ regVenta.impVentArroz }}</td>
+          <td>{{ regVenta.otrosNoBaseImp }}</td>
+          <td>{{ regVenta.importeTotalComp }}</td>
+          <td>{{ regVenta.codMoneda }}</td>
+          <td>{{ regVenta.tipCambio }}</td>
+          <td>{{ regVenta.fecEmiModif | formatMediumDatetime }}</td>
+          <td>{{ regVenta.tipCompModif }}</td>
+          <td>{{ regVenta.nroSerieCompModif }}</td>
+          <td>{{ regVenta.nroCompModif }}</td>
+          <td>{{ regVenta.identContrato }}</td>
+          <td>{{ regVenta.errTipUno }}</td>
+          <td>{{ regVenta.indCompVancMp }}</td>
+          <td>{{ regVenta.estadoOperaCancMp }}</td>
+          <td>{{ regVenta.campoLibre }}</td>
+          <td>{{ regVenta.formPago }}</td>
+          <td>{{ regVenta.moneda }}</td>
+          <td>{{ regVenta.indDel }}</td>
+          <td>{{ regVenta.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ regVenta.usuCrea }}</td>
+          <td>{{ regVenta.ipCrea }}</td>
+          <td>{{ regVenta.fecModif | formatMediumDatetime }}</td>
+          <td>{{ regVenta.usuModif }}</td>
+          <td>{{ regVenta.ipModif }}</td>
+          <td>
+            <div *ngIf="regVenta.orden">
+              <a [routerLink]="['/orden', regVenta.orden.id, 'view']">{{ regVenta.orden?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/reg-venta', regVenta.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/reg-venta', regVenta.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(regVenta)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

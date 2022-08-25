@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="orden">
+      <h2 data-cy="ordenDetailsHeading"><span>Orden</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ orden.id }}</span>
+        </dd>
+        <dt><span>Num Orden</span></dt>
+        <dd>
+          <span>{{ orden.numOrden }}</span>
+        </dd>
+        <dt><span>Fec Esti Ent</span></dt>
+        <dd>
+          <span>{{ orden.fecEstiEnt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Fec Recog</span></dt>
+        <dd>
+          <span>{{ orden.fecRecog | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Observacion</span></dt>
+        <dd>
+          <span>{{ orden.observacion }}</span>
+        </dd>
+        <dt><span>Tip Orden</span></dt>
+        <dd>
+          <span>{{ orden.tipOrden }}</span>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+          <span>{{ orden.estado }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ orden.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ orden.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ orden.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ orden.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ orden.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ orden.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ orden.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ orden.ipModif }}</span>
+        </dd>
+        <dt><span>Cliente</span></dt>
+        <dd>
+          <div *ngIf="orden.cliente">
+            <a [routerLink]="['/cliente', orden.cliente.id, 'view']">{{ orden.cliente?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Autorizacion</span></dt>
+        <dd>
+          <div *ngIf="orden.autorizacion">
+            <a [routerLink]="['/autorizacion', orden.autorizacion.id, 'view']">{{ orden.autorizacion?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/orden', orden.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

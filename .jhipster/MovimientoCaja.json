@@ -1,0 +1,80 @@
+{
+  "applications": "*",
+  "changelogDate": "20220825174947",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "movimiento_caja",
+  "fields": [
+    {
+      "fieldName": "tipMovimiento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "monto",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tipMoneda",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fecMovimiento",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "indDel",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecCrea",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "usuCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ipCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecModif",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "usuModif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ipModif",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MovimientoCaja",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "historicoCaja",
+      "relationshipName": "historicoCaja",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "autorizacion",
+      "relationshipName": "autorizacion",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

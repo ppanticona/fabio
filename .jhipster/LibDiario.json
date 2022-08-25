@@ -1,0 +1,141 @@
+{
+  "applications": "*",
+  "changelogDate": "20220825174943",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "lib_diario",
+  "fields": [
+    {
+      "fieldName": "periodo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cuo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "asientContab",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codCtaContable",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "codUnidOper",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codCentroCui",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipMonedaOri",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipDocIdenEmi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nroDocIdenEmi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipCompDocAsoc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nroSerCompDocAsoc",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nroCompDocAsoc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecContable",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fecVenc",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fecOpeEmi",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descOperac",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "glosaRef",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "debe",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "haber",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "datoEstruct",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indEstOpe",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "campoLibre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fecCrea",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "usuCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ipCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecModif",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "usuModif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ipModif",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "LibDiario",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

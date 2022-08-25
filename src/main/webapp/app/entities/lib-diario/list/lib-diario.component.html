@@ -1,0 +1,132 @@
+<div>
+  <h2 id="page-heading" data-cy="LibDiarioHeading">
+    <span>Lib Diarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-lib-diario"
+        [routerLink]="['/lib-diario/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Lib Diario </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="libDiarios?.length === 0">
+    <span>No Lib Diarios found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="libDiarios && libDiarios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="periodo"><span>Periodo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cuo"><span>Cuo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="asientContab"><span>Asient Contab</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codCtaContable"><span>Cod Cta Contable</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codUnidOper"><span>Cod Unid Oper</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codCentroCui"><span>Cod Centro Cui</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipMonedaOri"><span>Tip Moneda Ori</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipDocIdenEmi"><span>Tip Doc Iden Emi</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroDocIdenEmi"><span>Nro Doc Iden Emi</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipCompDocAsoc"><span>Tip Comp Doc Asoc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroSerCompDocAsoc"><span>Nro Ser Comp Doc Asoc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroCompDocAsoc"><span>Nro Comp Doc Asoc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecContable"><span>Fec Contable</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecVenc"><span>Fec Venc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecOpeEmi"><span>Fec Ope Emi</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="descOperac"><span>Desc Operac</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="glosaRef"><span>Glosa Ref</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="debe"><span>Debe</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="haber"><span>Haber</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="datoEstruct"><span>Dato Estruct</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indEstOpe"><span>Ind Est Ope</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="campoLibre"><span>Campo Libre</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let libDiario of libDiarios; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/lib-diario', libDiario.id, 'view']">{{ libDiario.id }}</a>
+          </td>
+          <td>{{ libDiario.periodo }}</td>
+          <td>{{ libDiario.cuo }}</td>
+          <td>{{ libDiario.asientContab }}</td>
+          <td>{{ libDiario.codCtaContable }}</td>
+          <td>{{ libDiario.codUnidOper }}</td>
+          <td>{{ libDiario.codCentroCui }}</td>
+          <td>{{ libDiario.tipMonedaOri }}</td>
+          <td>{{ libDiario.tipDocIdenEmi }}</td>
+          <td>{{ libDiario.nroDocIdenEmi }}</td>
+          <td>{{ libDiario.tipCompDocAsoc }}</td>
+          <td>{{ libDiario.nroSerCompDocAsoc }}</td>
+          <td>{{ libDiario.nroCompDocAsoc }}</td>
+          <td>{{ libDiario.fecContable | formatMediumDatetime }}</td>
+          <td>{{ libDiario.fecVenc | formatMediumDatetime }}</td>
+          <td>{{ libDiario.fecOpeEmi | formatMediumDatetime }}</td>
+          <td>{{ libDiario.descOperac }}</td>
+          <td>{{ libDiario.glosaRef }}</td>
+          <td>{{ libDiario.debe }}</td>
+          <td>{{ libDiario.haber }}</td>
+          <td>{{ libDiario.datoEstruct }}</td>
+          <td>{{ libDiario.indEstOpe }}</td>
+          <td>{{ libDiario.campoLibre }}</td>
+          <td>{{ libDiario.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ libDiario.usuCrea }}</td>
+          <td>{{ libDiario.ipCrea }}</td>
+          <td>{{ libDiario.fecModif | formatMediumDatetime }}</td>
+          <td>{{ libDiario.usuModif }}</td>
+          <td>{{ libDiario.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/lib-diario', libDiario.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/lib-diario', libDiario.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(libDiario)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

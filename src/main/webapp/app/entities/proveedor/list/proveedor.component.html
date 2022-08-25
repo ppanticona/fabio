@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="ProveedorHeading">
+    <span>Proveedors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-proveedor"
+        [routerLink]="['/proveedor/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Proveedor </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="proveedors?.length === 0">
+    <span>No Proveedors found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="proveedors && proveedors.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipDocProv"><span>Tip Doc Prov</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nroDocProv"><span>Nro Doc Prov</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nombresRazonSocProv"><span>Nombres Razon Soc Prov</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tel1"><span>Tel 1</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tel2"><span>Tel 2</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="correo"><span>Correo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="direccion"><span>Direccion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="refDireccion"><span>Ref Direccion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="distrito"><span>Distrito</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proveedor of proveedors; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/proveedor', proveedor.id, 'view']">{{ proveedor.id }}</a>
+          </td>
+          <td>{{ proveedor.tipDocProv }}</td>
+          <td>{{ proveedor.nroDocProv }}</td>
+          <td>{{ proveedor.nombresRazonSocProv }}</td>
+          <td>{{ proveedor.tel1 }}</td>
+          <td>{{ proveedor.tel2 }}</td>
+          <td>{{ proveedor.correo }}</td>
+          <td>{{ proveedor.direccion }}</td>
+          <td>{{ proveedor.refDireccion }}</td>
+          <td>{{ proveedor.distrito }}</td>
+          <td>{{ proveedor.estado }}</td>
+          <td>{{ proveedor.version }}</td>
+          <td>{{ proveedor.indDel }}</td>
+          <td>{{ proveedor.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ proveedor.usuCrea }}</td>
+          <td>{{ proveedor.ipCrea }}</td>
+          <td>{{ proveedor.fecModif | formatMediumDatetime }}</td>
+          <td>{{ proveedor.usuModif }}</td>
+          <td>{{ proveedor.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/proveedor', proveedor.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/proveedor', proveedor.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(proveedor)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

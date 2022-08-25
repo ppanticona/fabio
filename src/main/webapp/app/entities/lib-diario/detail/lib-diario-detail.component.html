@@ -1,0 +1,140 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="libDiario">
+      <h2 data-cy="libDiarioDetailsHeading"><span>Lib Diario</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ libDiario.id }}</span>
+        </dd>
+        <dt><span>Periodo</span></dt>
+        <dd>
+          <span>{{ libDiario.periodo }}</span>
+        </dd>
+        <dt><span>Cuo</span></dt>
+        <dd>
+          <span>{{ libDiario.cuo }}</span>
+        </dd>
+        <dt><span>Asient Contab</span></dt>
+        <dd>
+          <span>{{ libDiario.asientContab }}</span>
+        </dd>
+        <dt><span>Cod Cta Contable</span></dt>
+        <dd>
+          <span>{{ libDiario.codCtaContable }}</span>
+        </dd>
+        <dt><span>Cod Unid Oper</span></dt>
+        <dd>
+          <span>{{ libDiario.codUnidOper }}</span>
+        </dd>
+        <dt><span>Cod Centro Cui</span></dt>
+        <dd>
+          <span>{{ libDiario.codCentroCui }}</span>
+        </dd>
+        <dt><span>Tip Moneda Ori</span></dt>
+        <dd>
+          <span>{{ libDiario.tipMonedaOri }}</span>
+        </dd>
+        <dt><span>Tip Doc Iden Emi</span></dt>
+        <dd>
+          <span>{{ libDiario.tipDocIdenEmi }}</span>
+        </dd>
+        <dt><span>Nro Doc Iden Emi</span></dt>
+        <dd>
+          <span>{{ libDiario.nroDocIdenEmi }}</span>
+        </dd>
+        <dt><span>Tip Comp Doc Asoc</span></dt>
+        <dd>
+          <span>{{ libDiario.tipCompDocAsoc }}</span>
+        </dd>
+        <dt><span>Nro Ser Comp Doc Asoc</span></dt>
+        <dd>
+          <span>{{ libDiario.nroSerCompDocAsoc }}</span>
+        </dd>
+        <dt><span>Nro Comp Doc Asoc</span></dt>
+        <dd>
+          <span>{{ libDiario.nroCompDocAsoc }}</span>
+        </dd>
+        <dt><span>Fec Contable</span></dt>
+        <dd>
+          <span>{{ libDiario.fecContable | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Fec Venc</span></dt>
+        <dd>
+          <span>{{ libDiario.fecVenc | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Fec Ope Emi</span></dt>
+        <dd>
+          <span>{{ libDiario.fecOpeEmi | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Desc Operac</span></dt>
+        <dd>
+          <span>{{ libDiario.descOperac }}</span>
+        </dd>
+        <dt><span>Glosa Ref</span></dt>
+        <dd>
+          <span>{{ libDiario.glosaRef }}</span>
+        </dd>
+        <dt><span>Debe</span></dt>
+        <dd>
+          <span>{{ libDiario.debe }}</span>
+        </dd>
+        <dt><span>Haber</span></dt>
+        <dd>
+          <span>{{ libDiario.haber }}</span>
+        </dd>
+        <dt><span>Dato Estruct</span></dt>
+        <dd>
+          <span>{{ libDiario.datoEstruct }}</span>
+        </dd>
+        <dt><span>Ind Est Ope</span></dt>
+        <dd>
+          <span>{{ libDiario.indEstOpe }}</span>
+        </dd>
+        <dt><span>Campo Libre</span></dt>
+        <dd>
+          <span>{{ libDiario.campoLibre }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ libDiario.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ libDiario.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ libDiario.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ libDiario.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ libDiario.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ libDiario.ipModif }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/lib-diario', libDiario.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

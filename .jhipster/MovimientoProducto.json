@@ -1,0 +1,89 @@
+{
+  "applications": "*",
+  "changelogDate": "20220825174951",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "movimiento_producto",
+  "fields": [
+    {
+      "fieldName": "tipMovimiento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tip2Movimiento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cnt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "lote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fecMovimiento",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "indDel",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecCrea",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "usuCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ipCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecModif",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "usuModif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ipModif",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MovimientoProducto",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "producto",
+      "relationshipName": "producto",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "regVenta",
+      "relationshipName": "regVenta",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "regCompras",
+      "relationshipName": "regCompras",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

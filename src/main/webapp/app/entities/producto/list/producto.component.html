@@ -1,0 +1,114 @@
+<div>
+  <h2 id="page-heading" data-cy="ProductoHeading">
+    <span>Productos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-producto"
+        [routerLink]="['/producto/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Producto </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="productos?.length === 0">
+    <span>No Productos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="productos && productos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codProducto"><span>Cod Producto</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codQr"><span>Cod Qr</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codBarra"><span>Cod Barra</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="descripcion"><span>Descripcion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="detalleDesc"><span>Detalle Desc</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="valor"><span>Valor</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecIniVig"><span>Fec Ini Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecFinVig"><span>Fec Fin Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="costoProd"><span>Costo Prod</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="urlImage"><span>Url Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/producto', producto.id, 'view']">{{ producto.id }}</a>
+          </td>
+          <td>{{ producto.codProducto }}</td>
+          <td>{{ producto.codQr }}</td>
+          <td>{{ producto.codBarra }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.detalleDesc }}</td>
+          <td>{{ producto.valor }}</td>
+          <td>{{ producto.fecIniVig | formatMediumDatetime }}</td>
+          <td>{{ producto.fecFinVig | formatMediumDatetime }}</td>
+          <td>{{ producto.costoProd }}</td>
+          <td>{{ producto.urlImage }}</td>
+          <td>{{ producto.estado }}</td>
+          <td>{{ producto.version }}</td>
+          <td>{{ producto.indDel }}</td>
+          <td>{{ producto.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ producto.usuCrea }}</td>
+          <td>{{ producto.ipCrea }}</td>
+          <td>{{ producto.fecModif | formatMediumDatetime }}</td>
+          <td>{{ producto.usuModif }}</td>
+          <td>{{ producto.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/producto', producto.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/producto', producto.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(producto)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

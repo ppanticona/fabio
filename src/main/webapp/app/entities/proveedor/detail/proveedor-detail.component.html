@@ -1,0 +1,100 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="proveedor">
+      <h2 data-cy="proveedorDetailsHeading"><span>Proveedor</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ proveedor.id }}</span>
+        </dd>
+        <dt><span>Tip Doc Prov</span></dt>
+        <dd>
+          <span>{{ proveedor.tipDocProv }}</span>
+        </dd>
+        <dt><span>Nro Doc Prov</span></dt>
+        <dd>
+          <span>{{ proveedor.nroDocProv }}</span>
+        </dd>
+        <dt><span>Nombres Razon Soc Prov</span></dt>
+        <dd>
+          <span>{{ proveedor.nombresRazonSocProv }}</span>
+        </dd>
+        <dt><span>Tel 1</span></dt>
+        <dd>
+          <span>{{ proveedor.tel1 }}</span>
+        </dd>
+        <dt><span>Tel 2</span></dt>
+        <dd>
+          <span>{{ proveedor.tel2 }}</span>
+        </dd>
+        <dt><span>Correo</span></dt>
+        <dd>
+          <span>{{ proveedor.correo }}</span>
+        </dd>
+        <dt><span>Direccion</span></dt>
+        <dd>
+          <span>{{ proveedor.direccion }}</span>
+        </dd>
+        <dt><span>Ref Direccion</span></dt>
+        <dd>
+          <span>{{ proveedor.refDireccion }}</span>
+        </dd>
+        <dt><span>Distrito</span></dt>
+        <dd>
+          <span>{{ proveedor.distrito }}</span>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+          <span>{{ proveedor.estado }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ proveedor.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ proveedor.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ proveedor.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ proveedor.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ proveedor.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ proveedor.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ proveedor.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ proveedor.ipModif }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/proveedor', proveedor.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

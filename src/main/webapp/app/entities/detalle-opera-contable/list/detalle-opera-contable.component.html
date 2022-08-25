@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="DetalleOperaContableHeading">
+    <span>Detalle Opera Contables</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-detalle-opera-contable"
+        [routerLink]="['/detalle-opera-contable/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Detalle Opera Contable </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="detalleOperaContables?.length === 0">
+    <span>No Detalle Opera Contables found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="detalleOperaContables && detalleOperaContables.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="operador"><span>Operador</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="valorOperacion"><span>Valor Operacion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="descripcion"><span>Descripcion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipMovimiento"><span>Tip Movimiento</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="planContable.id"><span>Plan Contable</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="operaContable.id"><span>Opera Contable</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalleOperaContable of detalleOperaContables; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/detalle-opera-contable', detalleOperaContable.id, 'view']">{{ detalleOperaContable.id }}</a>
+          </td>
+          <td>{{ detalleOperaContable.operador }}</td>
+          <td>{{ detalleOperaContable.valorOperacion }}</td>
+          <td>{{ detalleOperaContable.descripcion }}</td>
+          <td>{{ detalleOperaContable.tipMovimiento }}</td>
+          <td>{{ detalleOperaContable.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ detalleOperaContable.usuCrea }}</td>
+          <td>{{ detalleOperaContable.ipCrea }}</td>
+          <td>{{ detalleOperaContable.fecModif | formatMediumDatetime }}</td>
+          <td>{{ detalleOperaContable.usuModif }}</td>
+          <td>{{ detalleOperaContable.ipModif }}</td>
+          <td>
+            <div *ngIf="detalleOperaContable.planContable">
+              <a [routerLink]="['/plan-contable', detalleOperaContable.planContable.id, 'view']">{{
+                detalleOperaContable.planContable?.id
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="detalleOperaContable.operaContable">
+              <a [routerLink]="['/opera-contable', detalleOperaContable.operaContable.id, 'view']">{{
+                detalleOperaContable.operaContable?.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/detalle-opera-contable', detalleOperaContable.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/detalle-opera-contable', detalleOperaContable.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(detalleOperaContable)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

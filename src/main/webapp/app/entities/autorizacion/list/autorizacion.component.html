@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="AutorizacionHeading">
+    <span>Autorizacions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-autorizacion"
+        [routerLink]="['/autorizacion/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Autorizacion </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="autorizacions?.length === 0">
+    <span>No Autorizacions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="autorizacions && autorizacions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipAutorizacion"><span>Tip Autorizacion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="token"><span>Token</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecIniVig"><span>Fec Ini Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecFinVig"><span>Fec Fin Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let autorizacion of autorizacions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/autorizacion', autorizacion.id, 'view']">{{ autorizacion.id }}</a>
+          </td>
+          <td>{{ autorizacion.tipAutorizacion }}</td>
+          <td>{{ autorizacion.token }}</td>
+          <td>{{ autorizacion.fecIniVig | formatMediumDatetime }}</td>
+          <td>{{ autorizacion.fecFinVig | formatMediumDatetime }}</td>
+          <td>{{ autorizacion.estado }}</td>
+          <td>{{ autorizacion.version }}</td>
+          <td>{{ autorizacion.indDel }}</td>
+          <td>{{ autorizacion.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ autorizacion.usuCrea }}</td>
+          <td>{{ autorizacion.ipCrea }}</td>
+          <td>{{ autorizacion.fecModif | formatMediumDatetime }}</td>
+          <td>{{ autorizacion.usuModif }}</td>
+          <td>{{ autorizacion.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/autorizacion', autorizacion.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/autorizacion', autorizacion.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(autorizacion)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

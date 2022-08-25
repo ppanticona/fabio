@@ -1,0 +1,92 @@
+<div>
+  <h2 id="page-heading" data-cy="ParametrosHeading">
+    <span>Parametros</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-parametros"
+        [routerLink]="['/parametros/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Parametros </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="parametros?.length === 0">
+    <span>No Parametros found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="parametros && parametros.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codParam"><span>Cod Param</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="detParam"><span>Det Param</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="primParam"><span>Prim Param</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="segParam"><span>Seg Param</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tercParam"><span>Terc Param</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cuarParam"><span>Cuar Param</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="descripcion"><span>Descripcion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="sequence"><span>Sequence</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parametros of parametros; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/parametros', parametros.id, 'view']">{{ parametros.id }}</a>
+          </td>
+          <td>{{ parametros.codParam }}</td>
+          <td>{{ parametros.detParam }}</td>
+          <td>{{ parametros.primParam }}</td>
+          <td>{{ parametros.segParam }}</td>
+          <td>{{ parametros.tercParam }}</td>
+          <td>{{ parametros.cuarParam }}</td>
+          <td>{{ parametros.descripcion }}</td>
+          <td>{{ parametros.sequence }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/parametros', parametros.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/parametros', parametros.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(parametros)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

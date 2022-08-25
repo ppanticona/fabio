@@ -1,0 +1,98 @@
+{
+  "applications": "*",
+  "changelogDate": "20220825174957",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "orden",
+  "fields": [
+    {
+      "fieldName": "numOrden",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecEstiEnt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "fecRecog",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "observacion",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "tipOrden",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "indDel",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecCrea",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "usuCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ipCrea",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fecModif",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "usuModif",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ipModif",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Orden",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "regVenta",
+      "otherEntityRelationshipName": "orden",
+      "relationshipName": "regVenta",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cliente",
+      "relationshipName": "cliente",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "autorizacion",
+      "relationshipName": "autorizacion",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

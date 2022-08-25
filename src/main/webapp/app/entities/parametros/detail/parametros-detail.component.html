@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="parametros">
+      <h2 data-cy="parametrosDetailsHeading"><span>Parametros</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ parametros.id }}</span>
+        </dd>
+        <dt><span>Cod Param</span></dt>
+        <dd>
+          <span>{{ parametros.codParam }}</span>
+        </dd>
+        <dt><span>Det Param</span></dt>
+        <dd>
+          <span>{{ parametros.detParam }}</span>
+        </dd>
+        <dt><span>Prim Param</span></dt>
+        <dd>
+          <span>{{ parametros.primParam }}</span>
+        </dd>
+        <dt><span>Seg Param</span></dt>
+        <dd>
+          <span>{{ parametros.segParam }}</span>
+        </dd>
+        <dt><span>Terc Param</span></dt>
+        <dd>
+          <span>{{ parametros.tercParam }}</span>
+        </dd>
+        <dt><span>Cuar Param</span></dt>
+        <dd>
+          <span>{{ parametros.cuarParam }}</span>
+        </dd>
+        <dt><span>Descripcion</span></dt>
+        <dd>
+          <span>{{ parametros.descripcion }}</span>
+        </dd>
+        <dt><span>Sequence</span></dt>
+        <dd>
+          <span>{{ parametros.sequence }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/parametros', parametros.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

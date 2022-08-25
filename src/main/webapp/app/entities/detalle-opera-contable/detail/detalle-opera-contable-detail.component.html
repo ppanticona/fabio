@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="detalleOperaContable">
+      <h2 data-cy="detalleOperaContableDetailsHeading"><span>Detalle Opera Contable</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.id }}</span>
+        </dd>
+        <dt><span>Operador</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.operador }}</span>
+        </dd>
+        <dt><span>Valor Operacion</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.valorOperacion }}</span>
+        </dd>
+        <dt><span>Descripcion</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.descripcion }}</span>
+        </dd>
+        <dt><span>Tip Movimiento</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.tipMovimiento }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ detalleOperaContable.ipModif }}</span>
+        </dd>
+        <dt><span>Plan Contable</span></dt>
+        <dd>
+          <div *ngIf="detalleOperaContable.planContable">
+            <a [routerLink]="['/plan-contable', detalleOperaContable.planContable.id, 'view']">{{
+              detalleOperaContable.planContable?.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Opera Contable</span></dt>
+        <dd>
+          <div *ngIf="detalleOperaContable.operaContable">
+            <a [routerLink]="['/opera-contable', detalleOperaContable.operaContable.id, 'view']">{{
+              detalleOperaContable.operaContable?.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/detalle-opera-contable', detalleOperaContable.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

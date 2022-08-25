@@ -1,0 +1,106 @@
+<div>
+  <h2 id="page-heading" data-cy="OrdenHeading">
+    <span>Ordens</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-orden"
+        [routerLink]="['/orden/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Orden </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="ordens?.length === 0">
+    <span>No Ordens found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="ordens && ordens.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="numOrden"><span>Num Orden</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecEstiEnt"><span>Fec Esti Ent</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecRecog"><span>Fec Recog</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="observacion"><span>Observacion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipOrden"><span>Tip Orden</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cliente.id"><span>Cliente</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autorizacion.id"><span>Autorizacion</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orden of ordens; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/orden', orden.id, 'view']">{{ orden.id }}</a>
+          </td>
+          <td>{{ orden.numOrden }}</td>
+          <td>{{ orden.fecEstiEnt | formatMediumDatetime }}</td>
+          <td>{{ orden.fecRecog | formatMediumDatetime }}</td>
+          <td>{{ orden.observacion }}</td>
+          <td>{{ orden.tipOrden }}</td>
+          <td>{{ orden.estado }}</td>
+          <td>{{ orden.version }}</td>
+          <td>{{ orden.indDel }}</td>
+          <td>{{ orden.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ orden.usuCrea }}</td>
+          <td>{{ orden.ipCrea }}</td>
+          <td>{{ orden.fecModif | formatMediumDatetime }}</td>
+          <td>{{ orden.usuModif }}</td>
+          <td>{{ orden.ipModif }}</td>
+          <td>
+            <div *ngIf="orden.cliente">
+              <a [routerLink]="['/cliente', orden.cliente.id, 'view']">{{ orden.cliente?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="orden.autorizacion">
+              <a [routerLink]="['/autorizacion', orden.autorizacion.id, 'view']">{{ orden.autorizacion?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/orden', orden.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/orden', orden.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(orden)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

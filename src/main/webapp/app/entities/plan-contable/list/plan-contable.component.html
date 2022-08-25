@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="PlanContableHeading">
+    <span>Plan Contables</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-plan-contable"
+        [routerLink]="['/plan-contable/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Plan Contable </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="planContables?.length === 0">
+    <span>No Plan Contables found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="planContables && planContables.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipPlan"><span>Tip Plan</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nivPlan"><span>Niv Plan</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codPlan"><span>Cod Plan</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="descCuenta"><span>Desc Cuenta</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="anhoPlan"><span>Anho Plan</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="resoPlan"><span>Reso Plan</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let planContable of planContables; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/plan-contable', planContable.id, 'view']">{{ planContable.id }}</a>
+          </td>
+          <td>{{ planContable.tipPlan }}</td>
+          <td>{{ planContable.nivPlan }}</td>
+          <td>{{ planContable.codPlan }}</td>
+          <td>{{ planContable.descCuenta }}</td>
+          <td>{{ planContable.anhoPlan }}</td>
+          <td>{{ planContable.resoPlan }}</td>
+          <td>{{ planContable.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ planContable.usuCrea }}</td>
+          <td>{{ planContable.ipCrea }}</td>
+          <td>{{ planContable.fecModif | formatMediumDatetime }}</td>
+          <td>{{ planContable.usuModif }}</td>
+          <td>{{ planContable.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/plan-contable', planContable.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/plan-contable', planContable.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(planContable)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

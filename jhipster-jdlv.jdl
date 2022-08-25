@@ -1,0 +1,464 @@
+
+entity Promocion {
+    tipPromocion String required,
+    val1 String, 
+    val2 String,
+    val3 String,
+    maxProm String,
+    fecIniVig ZonedDateTime required,
+    fecFinVig ZonedDateTime required,
+    comentarios TextBlob required,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity RegVenta {  
+    periodo String required,
+    cuo String required,
+    asientContab String,
+    fecEmiComp ZonedDateTime required,
+    fecVencComp ZonedDateTime,
+    tipComp String required,
+    nroSerieComp String required,
+    nroComp String required,
+    consoDia String, 
+    tipDocCli String required,
+    nroDocCli String required,
+    apeRazSocCli String required,
+    valFacExpor Double,
+    baseImpOperGrav Double required, 
+    dsctoBaseImp Double required,
+    igvIpm Double required,
+    dsctoIgvIpm Double required,
+    impOpeExo Double required,
+    impTotOpeInafec Double required,
+    impSecCons Double ,
+    baseImpArroz Double ,
+    impVentArroz Double, 
+    otrosNoBaseImp Double ,
+    importeTotalComp Double required,
+    codMoneda String required,
+    tipCambio Double required,
+    fecEmiModif ZonedDateTime,
+    tipCompModif String,
+    nroSerieCompModif String,
+    nroCompModif String,
+    identContrato String,
+    errTipUno String,
+    indCompVancMp String,
+    estadoOperaCancMp String,
+    campoLibre String,
+    formPago String,
+    moneda String,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity RegCompras {
+    periodo String required,
+    cuo String required,
+    asientContab String,
+    fecEmiComp ZonedDateTime required,
+    fecVencComp ZonedDateTime,
+    tipComp String required,
+    nroSerieComp String required,
+    anhoEmisionDua String,
+    nroComp String required,
+    nroFinal String,
+    tipDocProv String required,
+    nroDocProv String required,
+    nomApeRazSocProv String required,
+    baseImponible Double required,
+    montoIgv Double required,
+    baseImponible2 Double required,
+    montoIgv2 Double required,
+    baseImponible3 Double ,
+    montoIgv3 Double required,
+    montoNoGravado Double,
+    montoIsc Double,
+    impConsBols Double,
+    otrosCargos Double,
+    importeTotal Double,
+    codMoneda String,
+    tipCambio Double,
+    fecEmiModif ZonedDateTime,
+    tipCompModif String,
+    nroSerieCompModif String,
+    codDuaRef String,
+    nroCompModif String,
+    fecEmiDetracc ZonedDateTime,
+    nroConstDetracc String,
+    indCompSujRetenc String,
+    clasBienesyServicios String,
+    identContrato String,
+    errTipUno String,
+    errTipDos String,
+    errTipTres String,
+    errTipCuatro String,
+    indCompPagoMedPago String,
+    estado Integer,
+    campoLibre String,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity LibDiario {
+    periodo String required,
+    cuo String required,
+    asientContab String,
+    codCtaContable Integer required,
+    codUnidOper String,
+    codCentroCui String,
+    tipMonedaOri String,
+    tipDocIdenEmi String,
+    nroDocIdenEmi String,
+    tipCompDocAsoc String required,
+    nroSerCompDocAsoc String ,
+    nroCompDocAsoc String required,
+    fecContable ZonedDateTime,
+    fecVenc ZonedDateTime,
+    fecOpeEmi ZonedDateTime required,
+    descOperac String required,
+    glosaRef String,
+    debe Double required,
+    haber Double required,
+    datoEstruct String,
+    indEstOpe Integer required,
+    campoLibre String,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+    
+     
+
+}
+
+entity OperaContable {
+
+    descOpera String required,
+    areaRela String,
+    codLib String,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+    
+}
+
+entity DetalleOperaContable {
+
+    operador String,
+    valorOperacion Double,
+    descripcion String,
+    tipMovimiento String,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+    
+}
+
+
+entity PlanContable {
+    tipPlan String,
+    nivPlan Integer required,
+    codPlan String required,
+    descCuenta String required,
+    anhoPlan String,
+    resoPlan String,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+    
+}
+
+
+
+
+
+entity MovimientoCaja {
+    tipMovimiento String,
+    monto Double,
+    tipMoneda String,
+    fecMovimiento ZonedDateTime,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity HistoricoCaja {
+
+	
+    fecIniVig ZonedDateTime required,
+    fecFinVig ZonedDateTime required,
+    estado String required,
+    montoInicialSoles Double required,
+    montoMaximoSoles Double required,
+    montoRealSoles Double,
+    montoInicialDolares Double required,
+    montoMaximoDolares Double required,
+    montoRealDolares Double,
+    montoRealOtros Double,
+    usuarioAsignado String,
+    comentario String,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity Autorizacion {
+    tipAutorizacion String required,
+	token String required,
+    fecIniVig ZonedDateTime required,
+    fecFinVig ZonedDateTime required,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+           
+}
+
+entity Caja {
+    tipCaja String required,
+    descripcion String required,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+    
+}
+
+
+
+entity MovimientoProducto {
+    tipMovimiento String,
+    tip2Movimiento String,
+    cnt Double,
+    lote String,
+    fecMovimiento ZonedDateTime,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity Empleado {
+	tipDocEmp String required,
+    nroDocEmp String required,
+    nombresEmp String required,
+    apellidosEmp String required,
+    categoria String,
+    tel1 String,
+    tel2 String,
+    correo String,
+    direccion String,
+    refDirecc String,
+    distrito String,
+    fecIngreso ZonedDateTime,
+    fecNac ZonedDateTime required,
+    userId String,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity Producto {
+    codProducto String ,
+    codQr String,
+    codBarra String,
+    descripcion String required,
+    detalleDesc String ,
+    valor Double required, 
+    fecIniVig ZonedDateTime  ,
+    fecFinVig ZonedDateTime  ,
+    costoProd Double,
+    urlImage String required,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity Cliente {
+    tipDocCli String required,
+    nroDocCli String required,
+    nombresCli String required,
+    apellidosCli String required,
+    tel1 String required,
+    tel2 String,
+    correo String,
+    direccion String,
+    refDireccion String,
+    distrito String, 
+    fecNac ZonedDateTime required,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+
+entity Proveedor {
+    tipDocProv String required,
+    nroDocProv String required,
+    nombresRazonSocProv String required,
+    tel1 String ,
+    tel2 String,
+    correo String,
+    direccion String,
+    refDireccion String,
+    distrito String, 
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+entity DetalleOrden {
+    cantidad Double required,
+    valUni Double required,
+    dcto Double required,
+    subtotal Double required,
+    observacion TextBlob ,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+
+entity Orden {
+    numOrden Integer required,
+    fecEstiEnt ZonedDateTime,
+    fecRecog ZonedDateTime,
+    observacion TextBlob ,
+    tipOrden String required,
+    estado String required,
+    version Integer required,
+    indDel Boolean required,
+    fecCrea ZonedDateTime required,
+    usuCrea String required,
+    ipCrea String required,
+    fecModif ZonedDateTime ,
+    usuModif String ,
+    ipModif String 
+}
+
+entity Secuencias {
+	
+    seqid String,
+    descripcion String,
+    sequence Integer 
+}
+
+entity Parametros {
+	
+    codParam String,
+    detParam String,
+    primParam String,
+    segParam String,
+    tercParam String,
+    cuarParam String,
+    descripcion String,
+    sequence Integer 
+}
+
+relationship ManyToOne {
+  MovimientoCaja{historicoCaja} to HistoricoCaja
+  MovimientoCaja{autorizacion} to Autorizacion
+  HistoricoCaja{caja} to Caja
+  DetalleOperaContable{planContable} to PlanContable
+  DetalleOrden{orden} to Orden
+  DetalleOperaContable{operaContable} to OperaContable 
+  DetalleOrden{producto} to Producto
+  DetalleOrden{promocion} to Promocion
+  Orden{cliente} to Cliente
+  Orden{autorizacion} to Autorizacion
+  MovimientoProducto{producto} to Producto
+  MovimientoProducto{regVenta} to RegVenta
+  MovimientoProducto{regCompras} to RegCompras 
+  RegCompras{proveedor} to Proveedor
+
+
+}
+
+relationship OneToMany{
+   Orden{regVenta} to RegVenta{orden}
+}
+

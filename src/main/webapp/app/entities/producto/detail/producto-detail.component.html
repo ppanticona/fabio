@@ -1,0 +1,104 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="producto">
+      <h2 data-cy="productoDetailsHeading"><span>Producto</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ producto.id }}</span>
+        </dd>
+        <dt><span>Cod Producto</span></dt>
+        <dd>
+          <span>{{ producto.codProducto }}</span>
+        </dd>
+        <dt><span>Cod Qr</span></dt>
+        <dd>
+          <span>{{ producto.codQr }}</span>
+        </dd>
+        <dt><span>Cod Barra</span></dt>
+        <dd>
+          <span>{{ producto.codBarra }}</span>
+        </dd>
+        <dt><span>Descripcion</span></dt>
+        <dd>
+          <span>{{ producto.descripcion }}</span>
+        </dd>
+        <dt><span>Detalle Desc</span></dt>
+        <dd>
+          <span>{{ producto.detalleDesc }}</span>
+        </dd>
+        <dt><span>Valor</span></dt>
+        <dd>
+          <span>{{ producto.valor }}</span>
+        </dd>
+        <dt><span>Fec Ini Vig</span></dt>
+        <dd>
+          <span>{{ producto.fecIniVig | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Fec Fin Vig</span></dt>
+        <dd>
+          <span>{{ producto.fecFinVig | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Costo Prod</span></dt>
+        <dd>
+          <span>{{ producto.costoProd }}</span>
+        </dd>
+        <dt><span>Url Image</span></dt>
+        <dd>
+          <span>{{ producto.urlImage }}</span>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+          <span>{{ producto.estado }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ producto.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ producto.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ producto.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ producto.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ producto.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ producto.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ producto.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ producto.ipModif }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/producto', producto.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

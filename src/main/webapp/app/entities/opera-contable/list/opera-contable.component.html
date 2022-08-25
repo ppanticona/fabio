@@ -1,0 +1,94 @@
+<div>
+  <h2 id="page-heading" data-cy="OperaContableHeading">
+    <span>Opera Contables</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-opera-contable"
+        [routerLink]="['/opera-contable/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Opera Contable </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="operaContables?.length === 0">
+    <span>No Opera Contables found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="operaContables && operaContables.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="descOpera"><span>Desc Opera</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="areaRela"><span>Area Rela</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="codLib"><span>Cod Lib</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let operaContable of operaContables; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/opera-contable', operaContable.id, 'view']">{{ operaContable.id }}</a>
+          </td>
+          <td>{{ operaContable.descOpera }}</td>
+          <td>{{ operaContable.areaRela }}</td>
+          <td>{{ operaContable.codLib }}</td>
+          <td>{{ operaContable.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ operaContable.usuCrea }}</td>
+          <td>{{ operaContable.ipCrea }}</td>
+          <td>{{ operaContable.fecModif | formatMediumDatetime }}</td>
+          <td>{{ operaContable.usuModif }}</td>
+          <td>{{ operaContable.ipModif }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/opera-contable', operaContable.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/opera-contable', operaContable.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(operaContable)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

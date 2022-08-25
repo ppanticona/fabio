@@ -1,0 +1,122 @@
+<div>
+  <h2 id="page-heading" data-cy="HistoricoCajaHeading">
+    <span>Historico Cajas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-historico-caja"
+        [routerLink]="['/historico-caja/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Historico Caja </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="historicoCajas?.length === 0">
+    <span>No Historico Cajas found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="historicoCajas && historicoCajas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecIniVig"><span>Fec Ini Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecFinVig"><span>Fec Fin Vig</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="estado"><span>Estado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoInicialSoles"><span>Monto Inicial Soles</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoMaximoSoles"><span>Monto Maximo Soles</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoRealSoles"><span>Monto Real Soles</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoInicialDolares"><span>Monto Inicial Dolares</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoMaximoDolares"><span>Monto Maximo Dolares</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoRealDolares"><span>Monto Real Dolares</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="montoRealOtros"><span>Monto Real Otros</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuarioAsignado"><span>Usuario Asignado</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="comentario"><span>Comentario</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="caja.id"><span>Caja</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let historicoCaja of historicoCajas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/historico-caja', historicoCaja.id, 'view']">{{ historicoCaja.id }}</a>
+          </td>
+          <td>{{ historicoCaja.fecIniVig | formatMediumDatetime }}</td>
+          <td>{{ historicoCaja.fecFinVig | formatMediumDatetime }}</td>
+          <td>{{ historicoCaja.estado }}</td>
+          <td>{{ historicoCaja.montoInicialSoles }}</td>
+          <td>{{ historicoCaja.montoMaximoSoles }}</td>
+          <td>{{ historicoCaja.montoRealSoles }}</td>
+          <td>{{ historicoCaja.montoInicialDolares }}</td>
+          <td>{{ historicoCaja.montoMaximoDolares }}</td>
+          <td>{{ historicoCaja.montoRealDolares }}</td>
+          <td>{{ historicoCaja.montoRealOtros }}</td>
+          <td>{{ historicoCaja.usuarioAsignado }}</td>
+          <td>{{ historicoCaja.comentario }}</td>
+          <td>{{ historicoCaja.version }}</td>
+          <td>{{ historicoCaja.indDel }}</td>
+          <td>{{ historicoCaja.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ historicoCaja.usuCrea }}</td>
+          <td>{{ historicoCaja.ipCrea }}</td>
+          <td>{{ historicoCaja.fecModif | formatMediumDatetime }}</td>
+          <td>{{ historicoCaja.usuModif }}</td>
+          <td>{{ historicoCaja.ipModif }}</td>
+          <td>
+            <div *ngIf="historicoCaja.caja">
+              <a [routerLink]="['/caja', historicoCaja.caja.id, 'view']">{{ historicoCaja.caja?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/historico-caja', historicoCaja.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/historico-caja', historicoCaja.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(historicoCaja)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

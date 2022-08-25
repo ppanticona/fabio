@@ -1,0 +1,114 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="historicoCaja">
+      <h2 data-cy="historicoCajaDetailsHeading"><span>Historico Caja</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ historicoCaja.id }}</span>
+        </dd>
+        <dt><span>Fec Ini Vig</span></dt>
+        <dd>
+          <span>{{ historicoCaja.fecIniVig | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Fec Fin Vig</span></dt>
+        <dd>
+          <span>{{ historicoCaja.fecFinVig | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Estado</span></dt>
+        <dd>
+          <span>{{ historicoCaja.estado }}</span>
+        </dd>
+        <dt><span>Monto Inicial Soles</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoInicialSoles }}</span>
+        </dd>
+        <dt><span>Monto Maximo Soles</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoMaximoSoles }}</span>
+        </dd>
+        <dt><span>Monto Real Soles</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoRealSoles }}</span>
+        </dd>
+        <dt><span>Monto Inicial Dolares</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoInicialDolares }}</span>
+        </dd>
+        <dt><span>Monto Maximo Dolares</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoMaximoDolares }}</span>
+        </dd>
+        <dt><span>Monto Real Dolares</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoRealDolares }}</span>
+        </dd>
+        <dt><span>Monto Real Otros</span></dt>
+        <dd>
+          <span>{{ historicoCaja.montoRealOtros }}</span>
+        </dd>
+        <dt><span>Usuario Asignado</span></dt>
+        <dd>
+          <span>{{ historicoCaja.usuarioAsignado }}</span>
+        </dd>
+        <dt><span>Comentario</span></dt>
+        <dd>
+          <span>{{ historicoCaja.comentario }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ historicoCaja.version }}</span>
+        </dd>
+        <dt><span>Ind Del</span></dt>
+        <dd>
+          <span>{{ historicoCaja.indDel }}</span>
+        </dd>
+        <dt><span>Fec Crea</span></dt>
+        <dd>
+          <span>{{ historicoCaja.fecCrea | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Crea</span></dt>
+        <dd>
+          <span>{{ historicoCaja.usuCrea }}</span>
+        </dd>
+        <dt><span>Ip Crea</span></dt>
+        <dd>
+          <span>{{ historicoCaja.ipCrea }}</span>
+        </dd>
+        <dt><span>Fec Modif</span></dt>
+        <dd>
+          <span>{{ historicoCaja.fecModif | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Usu Modif</span></dt>
+        <dd>
+          <span>{{ historicoCaja.usuModif }}</span>
+        </dd>
+        <dt><span>Ip Modif</span></dt>
+        <dd>
+          <span>{{ historicoCaja.ipModif }}</span>
+        </dd>
+        <dt><span>Caja</span></dt>
+        <dd>
+          <div *ngIf="historicoCaja.caja">
+            <a [routerLink]="['/caja', historicoCaja.caja.id, 'view']">{{ historicoCaja.caja?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/historico-caja', historicoCaja.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<div>
+  <h2 id="page-heading" data-cy="MovimientoProductoHeading">
+    <span>Movimiento Productos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-movimiento-producto"
+        [routerLink]="['/movimiento-producto/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Movimiento Producto </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="movimientoProductos?.length === 0">
+    <span>No Movimiento Productos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="movimientoProductos && movimientoProductos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tipMovimiento"><span>Tip Movimiento</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tip2Movimiento"><span>Tip 2 Movimiento</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cnt"><span>Cnt</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lote"><span>Lote</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecMovimiento"><span>Fec Movimiento</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="version"><span>Version</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="indDel"><span>Ind Del</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecCrea"><span>Fec Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuCrea"><span>Usu Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipCrea"><span>Ip Crea</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="producto.id"><span>Producto</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="regVenta.id"><span>Reg Venta</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="regCompras.id"><span>Reg Compras</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movimientoProducto of movimientoProductos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/movimiento-producto', movimientoProducto.id, 'view']">{{ movimientoProducto.id }}</a>
+          </td>
+          <td>{{ movimientoProducto.tipMovimiento }}</td>
+          <td>{{ movimientoProducto.tip2Movimiento }}</td>
+          <td>{{ movimientoProducto.cnt }}</td>
+          <td>{{ movimientoProducto.lote }}</td>
+          <td>{{ movimientoProducto.fecMovimiento | formatMediumDatetime }}</td>
+          <td>{{ movimientoProducto.version }}</td>
+          <td>{{ movimientoProducto.indDel }}</td>
+          <td>{{ movimientoProducto.fecCrea | formatMediumDatetime }}</td>
+          <td>{{ movimientoProducto.usuCrea }}</td>
+          <td>{{ movimientoProducto.ipCrea }}</td>
+          <td>{{ movimientoProducto.fecModif | formatMediumDatetime }}</td>
+          <td>{{ movimientoProducto.usuModif }}</td>
+          <td>{{ movimientoProducto.ipModif }}</td>
+          <td>
+            <div *ngIf="movimientoProducto.producto">
+              <a [routerLink]="['/producto', movimientoProducto.producto.id, 'view']">{{ movimientoProducto.producto?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="movimientoProducto.regVenta">
+              <a [routerLink]="['/reg-venta', movimientoProducto.regVenta.id, 'view']">{{ movimientoProducto.regVenta?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="movimientoProducto.regCompras">
+              <a [routerLink]="['/reg-compras', movimientoProducto.regCompras.id, 'view']">{{ movimientoProducto.regCompras?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/movimiento-producto', movimientoProducto.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/movimiento-producto', movimientoProducto.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(movimientoProducto)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

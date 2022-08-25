@@ -1,0 +1,209 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-movimiento-producto-heading" data-cy="MovimientoProductoCreateUpdateHeading">Create or edit a Movimiento Producto</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_tipMovimiento">Tip Movimiento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tipMovimiento"
+            id="field_tipMovimiento"
+            data-cy="tipMovimiento"
+            formControlName="tipMovimiento"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_tip2Movimiento">Tip 2 Movimiento</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tip2Movimiento"
+            id="field_tip2Movimiento"
+            data-cy="tip2Movimiento"
+            formControlName="tip2Movimiento"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_cnt">Cnt</label>
+          <input type="number" class="form-control" name="cnt" id="field_cnt" data-cy="cnt" formControlName="cnt" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_lote">Lote</label>
+          <input type="text" class="form-control" name="lote" id="field_lote" data-cy="lote" formControlName="lote" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_fecMovimiento">Fec Movimiento</label>
+          <div class="d-flex">
+            <input
+              id="field_fecMovimiento"
+              data-cy="fecMovimiento"
+              type="datetime-local"
+              class="form-control"
+              name="fecMovimiento"
+              formControlName="fecMovimiento"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_version">Version</label>
+          <input type="number" class="form-control" name="version" id="field_version" data-cy="version" formControlName="version" />
+          <div *ngIf="editForm.get('version')!.invalid && (editForm.get('version')!.dirty || editForm.get('version')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('version')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('version')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_indDel">Ind Del</label>
+          <input type="checkbox" class="form-check" name="indDel" id="field_indDel" data-cy="indDel" formControlName="indDel" />
+          <div *ngIf="editForm.get('indDel')!.invalid && (editForm.get('indDel')!.dirty || editForm.get('indDel')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('indDel')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_fecCrea">Fec Crea</label>
+          <div class="d-flex">
+            <input
+              id="field_fecCrea"
+              data-cy="fecCrea"
+              type="datetime-local"
+              class="form-control"
+              name="fecCrea"
+              formControlName="fecCrea"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('fecCrea')!.invalid && (editForm.get('fecCrea')!.dirty || editForm.get('fecCrea')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('fecCrea')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('fecCrea')?.errors?.datetimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_usuCrea">Usu Crea</label>
+          <input type="text" class="form-control" name="usuCrea" id="field_usuCrea" data-cy="usuCrea" formControlName="usuCrea" />
+          <div *ngIf="editForm.get('usuCrea')!.invalid && (editForm.get('usuCrea')!.dirty || editForm.get('usuCrea')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('usuCrea')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ipCrea">Ip Crea</label>
+          <input type="text" class="form-control" name="ipCrea" id="field_ipCrea" data-cy="ipCrea" formControlName="ipCrea" />
+          <div *ngIf="editForm.get('ipCrea')!.invalid && (editForm.get('ipCrea')!.dirty || editForm.get('ipCrea')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('ipCrea')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_fecModif">Fec Modif</label>
+          <div class="d-flex">
+            <input
+              id="field_fecModif"
+              data-cy="fecModif"
+              type="datetime-local"
+              class="form-control"
+              name="fecModif"
+              formControlName="fecModif"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_usuModif">Usu Modif</label>
+          <input type="text" class="form-control" name="usuModif" id="field_usuModif" data-cy="usuModif" formControlName="usuModif" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ipModif">Ip Modif</label>
+          <input type="text" class="form-control" name="ipModif" id="field_ipModif" data-cy="ipModif" formControlName="ipModif" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_producto">Producto</label>
+          <select
+            class="form-control"
+            id="field_producto"
+            data-cy="producto"
+            name="producto"
+            formControlName="producto"
+            [compareWith]="compareProducto"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="productoOption" *ngFor="let productoOption of productosSharedCollection">{{ productoOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_regVenta">Reg Venta</label>
+          <select
+            class="form-control"
+            id="field_regVenta"
+            data-cy="regVenta"
+            name="regVenta"
+            formControlName="regVenta"
+            [compareWith]="compareRegVenta"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="regVentaOption" *ngFor="let regVentaOption of regVentasSharedCollection">{{ regVentaOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_regCompras">Reg Compras</label>
+          <select
+            class="form-control"
+            id="field_regCompras"
+            data-cy="regCompras"
+            name="regCompras"
+            formControlName="regCompras"
+            [compareWith]="compareRegCompras"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="regComprasOption" *ngFor="let regComprasOption of regComprasSharedCollection">
+              {{ regComprasOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
