@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface SecuenciasRepository extends MongoRepository<Secuencias, String> {}
+public interface SecuenciasRepository extends MongoRepository<Secuencias, String> {
+    Secuencias findBySeqid(String nameSeq);
+}

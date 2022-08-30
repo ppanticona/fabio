@@ -7,7 +7,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
-
+import { faClipboardCheck, faCartPlus, faHandHolding, faGifts, faChartPie } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'jhi-navbar',
   templateUrl: './navbar.component.html',
@@ -15,6 +15,11 @@ import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 })
 export class NavbarComponent implements OnInit {
   inProduction?: boolean;
+  faClipboardCheck = faClipboardCheck;
+  faCartPlus = faCartPlus;
+  faHandHolding = faHandHolding;
+  faGifts = faGifts;
+  faChartPie = faChartPie;
   isNavbarCollapsed = true;
   openAPIEnabled?: boolean;
   version = '';

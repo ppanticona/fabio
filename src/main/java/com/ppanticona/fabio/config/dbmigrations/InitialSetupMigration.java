@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 /**
  * Creates the initial database setup.
  */
-@ChangeUnit(id = "users-initialization", order = "001")
+@ChangeUnit(id = "users-initialization", order = "001", runAlways = true)
 public class InitialSetupMigration {
 
     private final MongoTemplate template;
@@ -28,6 +28,17 @@ public class InitialSetupMigration {
         userAuthority = template.save(userAuthority);
         Authority adminAuthority = createAdminAuthority();
         adminAuthority = template.save(adminAuthority);
+
+        Authority cajeroAuthority = createCajeroAuthority();
+        cajeroAuthority = template.save(cajeroAuthority);
+
+        Authority contadorAuthority = createContadorAuthority();
+        contadorAuthority = template.save(contadorAuthority);
+        Authority inventariadorAuthority = createInventariadorAuthority();
+        inventariadorAuthority = template.save(inventariadorAuthority);
+        Authority gerenteAuthority = createGerenteAuthority();
+        gerenteAuthority = template.save(gerenteAuthority);
+
         addUsers(userAuthority, adminAuthority);
     }
 
@@ -48,6 +59,26 @@ public class InitialSetupMigration {
     private Authority createUserAuthority() {
         Authority userAuthority = createAuthority(AuthoritiesConstants.USER);
         return userAuthority;
+    }
+
+    private Authority createCajeroAuthority() {
+        Authority cajeroAuthority = createAuthority(AuthoritiesConstants.CAJERO);
+        return cajeroAuthority;
+    }
+
+    private Authority createContadorAuthority() {
+        Authority contadorAuthority = createAuthority(AuthoritiesConstants.CONTADOR);
+        return contadorAuthority;
+    }
+
+    private Authority createInventariadorAuthority() {
+        Authority inventariadorAuthority = createAuthority(AuthoritiesConstants.INVENTARIADOR);
+        return inventariadorAuthority;
+    }
+
+    private Authority createGerenteAuthority() {
+        Authority gerenteAuthority = createAuthority(AuthoritiesConstants.GERENTE);
+        return gerenteAuthority;
     }
 
     private void addUsers(Authority userAuthority, Authority adminAuthority) {

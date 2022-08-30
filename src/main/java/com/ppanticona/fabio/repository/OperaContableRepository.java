@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OperaContableRepository extends MongoRepository<OperaContable, String> {}
+public interface OperaContableRepository extends MongoRepository<OperaContable, String> {
+    OperaContable findByDescOpera(String descOpera);
+}

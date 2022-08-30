@@ -9,7 +9,83 @@ Main page styles
   background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
   background-size: contain;
 }
+.caja-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/clerk.png') no-repeat center center;
+  background-size: contain;
+}
+.target-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/target.png') no-repeat center center;
+  background-size: contain;
+}
+.cancelbill-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/forbidden.png') no-repeat center center;
+  background-size: contain;
+}
+.cash-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/cash-machine.png') no-repeat center center;
+  background-size: contain;
+}
+.deal-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/deal.png') no-repeat center center;
+  background-size: contain;
+}
+.analytics-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/analytics.png') no-repeat center center;
+  background-size: contain;
+}
+.team-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/team.png') no-repeat center center;
+  background-size: contain;
+}
+.users-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/user.png') no-repeat center center;
+  background-size: contain;
+}
+.box-img {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/box.png') no-repeat center center;
+  background-size: contain;
+}
 
+.btn-sq-lg {
+  width: 400px !important;
+  height: 200px !important;
+}
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and (-moz-min-device-pixel-ratio: 2),

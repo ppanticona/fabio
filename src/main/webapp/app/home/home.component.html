@@ -1,54 +1,119 @@
 <div class="row">
-  <div class="col-md-3">
-    <span class="hipster img-fluid rounded"></span>
-  </div>
-
-  <div class="col-md-9">
-    <h1 class="display-4"><span>Welcome, Java Hipster!</span> (Fabio)</h1>
-
-    <p class="lead">J Y Y MODAS</p>
-
-    <div [ngSwitch]="account !== null">
-      <div class="alert alert-success" *ngSwitchCase="true">
-        <span id="home-logged-message" *ngIf="account">You are logged in as user "{{ account.login }}".</span>
-      </div>
-
-      <div class="alert alert-warning" *ngSwitchCase="false">
-        <span>If you want to </span>
-        <a class="alert-link" (click)="login()">sign in</a
-        ><span
-          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
-          password="user").</span
+  <div [ngSwitch]="isAuthenticated()" class="col-md-12">
+    <div class="row">
+      <div class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CAJERO']">
+        <a
+          class="btn btn-sq-lg btn-primary btn-block"
+          routerLink="isla"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
         >
+          <span class="cash-img"></span>
+
+          Isla <br />
+        </a>
       </div>
 
-      <div class="alert alert-warning" *ngSwitchCase="false">
-        <span>You don't have an account yet?</span>&nbsp;
-        <a class="alert-link" routerLink="account/register">Register a new account</a>
+      <div class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CAJERO', 'ROLE_GERENTE']">
+        <a href="#" class="btn btn-sq-lg btn-warning btn-block" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <span class="cancelbill-img"></span>
+          Anular Comprobante<br />
+        </a>
       </div>
     </div>
 
-    <p>If you have any question on JHipster:</p>
-
-    <ul>
-      <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">JHipster homepage</a></li>
-      <li>
-        <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">JHipster on Stack Overflow</a>
-      </li>
-      <li>
-        <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer"
-          >JHipster bug tracker</a
+    <div class="row">
+      <div class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-secondary btn-block"
+          routerLink="clusterkafka"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
         >
-      </li>
-      <li>
-        <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">JHipster public chat room</a>
-      </li>
-      <li><a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">follow @jhipster on Twitter</a></li>
-    </ul>
+          <span class="target-img"></span>
 
-    <p>
-      <span>If you like JHipster, don't forget to give us a star on</span>
-      <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
-    </p>
+          Clientes<br />
+        </a>
+      </div>
+      <div class="col-sm-4" class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-success btn-block"
+          routerLink="servidores"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="analytics-img"></span>
+          Reportes<br />
+        </a>
+      </div>
+      <div class="col-sm-4" class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-dark btn-block"
+          routerLink="producto"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="box-img"></span>
+          Productos<br />
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4" class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-warning btn-block"
+          routerLink="admin/user-management"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="users-img"></span>
+          Usuarios de Sistema<br />
+        </a>
+      </div>
+      <div class="col-sm-4" class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-primary btn-block"
+          routerLink="mantenimientoEmpleados"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="team-img"></span>
+          Empleados<br />
+        </a>
+      </div>
+      <div class="col-sm-4" class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-warning btn-block"
+          routerLink="mantenimientoCajas"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="caja-img"></span>
+          Administracion Cajas<br />
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4" class="col-sm-4" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_GERENTE']">
+        <a
+          href="#"
+          class="btn btn-sq-lg btn-success btn-block"
+          routerLink="mantenimientoCajas"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="deal-img"></span>
+          Autorizaciones<br />
+        </a>
+      </div>
+    </div>
+    <div class="row"></div>
   </div>
 </div>

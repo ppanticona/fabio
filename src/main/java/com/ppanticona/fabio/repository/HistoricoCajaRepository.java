@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface HistoricoCajaRepository extends MongoRepository<HistoricoCaja, String> {}
+public interface HistoricoCajaRepository extends MongoRepository<HistoricoCaja, String> {
+    HistoricoCaja findByUsuarioAsignadoAndAndEstado(String usuarioAsignado, String Estado);
+}

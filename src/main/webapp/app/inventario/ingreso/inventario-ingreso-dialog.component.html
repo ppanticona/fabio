@@ -1,0 +1,185 @@
+<form name="deleteForm">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="aperturaCaja">APERTURAR CAJA</h4>
+    <h4 class="modal-title" *ngIf="cierreCaja">CERRAR CAJA</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Tipo Ingreso:</label>
+          <select class="form-control" required name="tipDocCli">
+            <option value="1">COMPRA</option>
+            <option value="2">DONACION</option>
+            <option value="3">MOVIMIENTO ALMACEN</option>
+          </select>
+          <div class="invalid-feedback">Debe Seleccionar un tipo ingreso</div>
+        </div>
+      </div>
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Tip. Doc :</label>
+          <select class="form-control" id="exampleFormControlSelect1" required name="tipDocCli">
+            <option value="03">FACTURA</option>
+            <option value="01">BOLETA DE VENTA</option>
+            <option value="00">OTROS</option>
+          </select>
+          <div class="invalid-feedback">Debe Seleccionar un tipo documento</div>
+        </div>
+      </div>
+      <div class="col-md-6 align-self-center">
+        <div class="form-group">
+          <label>Numero Documento : </label>
+          <input class="form-control" type="text" required placeholder="Ingrese numero documento" name="numDocCli" />
+          <div class="invalid-feedback">Debe Ingresar un numero</div>
+        </div>
+      </div>
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label>Lote : </label>
+          <input class="form-control" type="text" placeholder="Ingrese numero lote" name="numDocCli" />
+        </div>
+      </div>
+    </div>
+
+    <hr class="mt-2 mb-3" />
+    <div class="row">
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Tip. Doc. Proveedor :</label>
+          <select class="form-control" required name="tipDocCli">
+            <option value="1">DNI</option>
+            <option value="6">RUC</option>
+            <option value="4">CARNÉ EXTRANJERIA</option>
+            <option value="7">PASAPORTE</option>
+            <option value="A">CEDULA DIPLOMATICA DE IDENTIDAD</option>
+            <option value="0">OTROS</option>
+          </select>
+          <div class="invalid-feedback">Debe Seleccionar un tipo documento</div>
+        </div>
+      </div>
+      <div class="col-md-4 align-self-center">
+        <div class="form-group">
+          <label>Numero Documento Proveedor : </label>
+          <input class="form-control" type="text" required placeholder="Ingrese numero documento" name="numDocCli" />
+          <div class="invalid-feedback">Debe Ingresar un numero</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mt-2 mb-3" />
+    <div class="row">
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label>Código de Producto : </label>
+          <input class="form-control" type="text" required placeholder="Ingrese código de Producto" name="numDocCli" />
+          <div class="invalid-feedback">Debe Ingresar un código</div>
+        </div>
+      </div>
+      <div class="col-md-4 align-self-center">
+        <div class="form-group">
+          <label>Descripción de Producto : </label>
+          <input class="form-control" type="text" required placeholder="Ingrese descripción de Producto" name="numDocCli" />
+          <div class="invalid-feedback">Debe Ingresar una descripción</div>
+        </div>
+      </div>
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label>Precio de Compra : </label>
+          <input class="form-control" type="number" required placeholder="Ingrese precio de compra" name="numDocCli" />
+          <div class="invalid-feedback">Debe Ingresar un precio de venta</div>
+        </div>
+      </div>
+      <div class="col-md-2 align-self-center">
+        <div class="form-group">
+          <label>Cantidad : </label>
+          <input class="form-control" type="number" required placeholder="Ingrese cantidad" name="numDocCli" />
+          <div class="invalid-feedback">Debe Ingresar una cantidad</div>
+        </div>
+      </div>
+
+      <div class="col-md-2 align-self-center">
+        <button type="button" class="btn btn-info btn-block">+</button>
+      </div>
+    </div>
+
+    <hr class="mt-2 mb-3" />
+    <div class="row">
+      <div class="card">
+        <div class="card-body table-responsive">
+          <table class="table table-light table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Precio de Compra</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+                <td>@fat</td>
+                <td>@fat</td>
+                <td>@fat</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>cancelar</span>
+    </button>
+
+    <button id="jhi-confirm-delete-cliente" data-cy="entityConfirmDeleteButton" class="btn btn-success">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span>Registrar Ingreso</span>
+    </button>
+  </div>
+</form>

@@ -340,6 +340,51 @@
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>
+        <!-- AGREGADO PARA INVENTARIO-->
+        <li
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" data-cy="adminMenu">
+            <span>
+              <fa-icon [icon]="faClipboardCheck"></fa-icon>
+              <span>Inventario</span>
+            </span>
+          </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
+            <li>
+              <a class="dropdown-item" routerLink="inventarioIngreso" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon [icon]="faCartPlus" [fixedWidth]="true"></fa-icon>
+                <span>Ingreso</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="inventarioSalida" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon [icon]="faHandHolding" [fixedWidth]="true"></fa-icon>
+                <span>Salida</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="inventarioProductos" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon [icon]="faGifts" [fixedWidth]="true"></fa-icon>
+                <span>Productos</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="admin/configuration" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon [icon]="faChartPie" [fixedWidth]="true"></fa-icon>
+                <span>Reportes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- FIN DE INVENTARIO-->
+
         <li
           ngbDropdown
           class="nav-item dropdown pointer"

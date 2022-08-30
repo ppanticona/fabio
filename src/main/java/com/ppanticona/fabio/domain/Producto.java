@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 /**
  * A Producto.
  */
+
 @Document(collection = "producto")
 public class Producto implements Serializable {
 
