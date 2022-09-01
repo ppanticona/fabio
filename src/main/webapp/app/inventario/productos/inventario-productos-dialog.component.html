@@ -1,9 +1,58 @@
 <form name="deleteForm">
   <div class="modal-header">
-    <h4 class="modal-title" *ngIf="aperturaCaja">APERTURAR CAJA</h4>
-    <h4 class="modal-title" *ngIf="cierreCaja">CERRAR CAJA</h4>
+    <h4 class="modal-title">Registrar Nuevo Producto</h4>
+
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
   </div>
 
-  <div class="modal-body"></div>
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+
+    <p id="jhi-delete-cliente-heading"></p>
+    <div class="container">
+      <div *ngIf="!registrandoProducto">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="nombres">Descripcion </label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombres"
+              placeholder="Nombres"
+              [(ngModel)]="producto.descripcion"
+              name="descripcion"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="nroDocCli">Precio de Venta</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nroDocCli"
+              placeholder="nro Documento"
+              [(ngModel)]="producto.valor"
+              name="nroDocCli"
+            />
+          </div>
+        </div>
+        <div class="row" *ngIf="productoExiste">
+          <div class="alert alert-warning" role="alert">Ya existe un producto registrado con la descripcion.</div>
+        </div>
+      </div>
+      <div *ngIf="registrandoProducto">GRABANDO</div>
+    </div>
+  </div>
+
+  <div class="modal-footer" *ngIf="!registrandoProducto">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>cancelar</span>
+    </button>
+
+    <button id="jhi-confirm-delete-cliente" data-cy="entityConfirmDeleteButton" (click)="registrar()" class="btn btn-success">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span>Registrar</span>
+    </button>
+  </div>
 </form>

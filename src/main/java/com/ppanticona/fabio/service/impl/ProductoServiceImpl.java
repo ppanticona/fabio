@@ -67,10 +67,10 @@ public class ProductoServiceImpl implements ProductoService {
 
             for (Producto p : listProductos) {
                 ProductoInventarioModel productoInventarioModel = productoInventarioConverter.convertEntity2Model(p); // convertimos el domain al modelo que tiene ingreso y salida
-                Double ingreso = movimientoProductoRepository.getSumCantidadPorCodProductoAndTipMovimiento(p.getCodProducto(), "I"); // obtenemos el valor total de cantidad por ingreso
-                productoInventarioModel.setMontoIngreso(ingreso); //asignamos valor obtenido
-                Double salida = movimientoProductoRepository.getSumCantidadPorCodProductoAndTipMovimiento(p.getCodProducto(), "S"); // obtenemos el valor total de cantidad por ingreso
-                productoInventarioModel.setMontoSalida(salida);
+                //   Double ingreso = movimientoProductoRepository.getSumCantidadPorCodProductoAndTipMovimiento(p.getCodProducto(), "I"); // obtenemos el valor total de cantidad por ingreso
+                //  productoInventarioModel.setMontoIngreso(ingreso); //asignamos valor obtenido
+                //  Double salida = movimientoProductoRepository.getSumCantidadPorCodProductoAndTipMovimiento(p.getCodProducto(), "S"); // obtenemos el valor total de cantidad por ingreso
+                //  productoInventarioModel.setMontoSalida(salida);
                 listProductoInventarioModel.add(productoInventarioModel);
             }
 

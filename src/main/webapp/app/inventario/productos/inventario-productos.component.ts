@@ -74,13 +74,10 @@ export class InventarioProductosComponent implements OnInit {
     });
   }
 
-  aperturarCaja(caja: ICaja): void {
+  nuevoProducto(): void {
     const modalRef = this.modalService.open(InventarioProductosDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.caja = caja;
-    modalRef.componentInstance.aperturaCaja = true;
-    modalRef.componentInstance.cierreCaja = false;
-    modalRef.componentInstance.userCajeros = this.userCajeros;
-    modalRef.componentInstance.usuCrea = this.account?.login;
+
+    modalRef.componentInstance.producto.usuCrea = this.account?.login;
 
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
