@@ -7,6 +7,7 @@ export interface IMovimientoProducto {
   id: string;
   tipMovimiento?: string | null;
   tip2Movimiento?: string | null;
+  precCompra?: number | null;
   cnt?: number | null;
   lote?: string | null;
   fecMovimiento?: dayjs.Dayjs | null;

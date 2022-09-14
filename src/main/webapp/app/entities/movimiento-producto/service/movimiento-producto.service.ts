@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
@@ -80,6 +80,19 @@ export class MovimientoProductoService {
 
   compareMovimientoProducto(o1: Pick<IMovimientoProducto, 'id'> | null, o2: Pick<IMovimientoProducto, 'id'> | null): boolean {
     return o1 && o2 ? this.getMovimientoProductoIdentifier(o1) === this.getMovimientoProductoIdentifier(o2) : o1 === o2;
+  }
+
+  registrarIngreso(data: any): Observable<HttpResponse<any>> {
+    const body = JSON.stringify(data);
+
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http
+      .post<any>(`${this.resourceUrl}/registrarIngreso`, body, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
   }
 
   addMovimientoProductoToCollectionIfMissing<Type extends Pick<IMovimientoProducto, 'id'>>(

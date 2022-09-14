@@ -5,14 +5,16 @@ import com.ppanticona.fabio.repository.ProductoRepository;
 import com.ppanticona.fabio.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -200,6 +202,98 @@ public class ProductoResource {
     public List<Producto> getAllProductos() {
         log.debug("REST request to get all Productos");
         return productoRepository.findAll();
+    }
+
+    @GetMapping("/productosActivos")
+    public ResponseEntity<Map<String, Object>> getAllProductosActivos(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "3") int size
+    ) {
+        log.debug("REST request to get all Productos con inddel false y estado 01 ");
+
+        try {
+            List<Producto> productos = new ArrayList<Producto>();
+            Pageable paging = PageRequest.of(page, size);
+
+            Page<Producto> pageProductos = productoRepository.findAllByIndDelAndEstado(false, "01", paging);
+            productos = pageProductos.getContent();
+
+            if (productos.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("productos", productos);
+            response.put("currentPage", pageProductos.getNumber());
+            response.put("totalItems", pageProductos.getTotalElements());
+            response.put("totalPages", pageProductos.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/productosPorDescripcion/{cadena}")
+    public ResponseEntity<Map<String, Object>> getAllProductosPorDescripcion(
+        @PathVariable(value = "cadena", required = true) final String cadena,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "3") int size
+    ) {
+        log.debug("REST request to get all Productos por regex descripcion con inddel false y estado 01 ");
+
+        try {
+            List<Producto> productos = new ArrayList<Producto>();
+            Pageable paging = PageRequest.of(page, size);
+
+            Page<Producto> pageProductos = productoRepository.findAllByDescripcionRegexAndIndDelIsFalseAndEstado(cadena, "01", paging);
+            productos = pageProductos.getContent();
+
+            if (productos.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("productos", productos);
+            response.put("currentPage", pageProductos.getNumber());
+            response.put("totalItems", pageProductos.getTotalElements());
+            response.put("totalPages", pageProductos.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/productosPorCodigo/{cadena}")
+    public ResponseEntity<Map<String, Object>> getAllProductosPorCodigoProducto(
+        @PathVariable(value = "cadena", required = true) final String cadena,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "3") int size
+    ) {
+        log.debug("REST request to get all Productos por codigo con inddel false y estado 01 ");
+
+        try {
+            List<Producto> productos = new ArrayList<Producto>();
+            Pageable paging = PageRequest.of(page, size);
+
+            Page<Producto> pageProductos = productoRepository.findAllByCodProductoAndEstadoAndIndDelIsFalse(cadena, "01", paging);
+            productos = pageProductos.getContent();
+
+            if (productos.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("productos", productos);
+            response.put("currentPage", pageProductos.getNumber());
+            response.put("totalItems", pageProductos.getTotalElements());
+            response.put("totalPages", pageProductos.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

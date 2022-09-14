@@ -224,4 +224,14 @@ public class ProveedorResource {
         proveedorRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
+
+    @GetMapping("/proveedors/buscarportn/{tipDocProv}/{nroDocProv}")
+    public ResponseEntity<Proveedor> getProveedorByTipAndNro(
+        @PathVariable("tipDocProv") String tipDocProv,
+        @PathVariable("nroDocProv") String nroDocProv
+    ) {
+        log.debug("REST request to getClienteByTipAndNro Cliente : {}", tipDocProv, nroDocProv);
+        Proveedor proveedor = proveedorRepository.findBytipDocProvAndNroDocProv(tipDocProv, nroDocProv);
+        return ResponseEntity.ok().body(proveedor);
+    }
 }

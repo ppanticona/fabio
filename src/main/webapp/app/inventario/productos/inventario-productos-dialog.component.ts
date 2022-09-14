@@ -39,7 +39,6 @@ export class InventarioProductosDialogComponent {
     this.producto.indDel = false;
     this.producto.ipCrea = '0.0.0.0';
     this.producto.urlImage = '-';
-    this.producto.fecCrea = dayjs(today, DATE_TIME_FORMAT);
     this.subscribeToSaveResponse(this.productoService.create(this.producto));
   }
 

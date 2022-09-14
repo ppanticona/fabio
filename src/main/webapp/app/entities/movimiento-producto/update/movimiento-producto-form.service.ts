@@ -35,6 +35,7 @@ type MovimientoProductoFormGroupContent = {
   id: FormControl<MovimientoProductoFormRawValue['id'] | NewMovimientoProducto['id']>;
   tipMovimiento: FormControl<MovimientoProductoFormRawValue['tipMovimiento']>;
   tip2Movimiento: FormControl<MovimientoProductoFormRawValue['tip2Movimiento']>;
+  precCompra: FormControl<MovimientoProductoFormRawValue['precCompra']>;
   cnt: FormControl<MovimientoProductoFormRawValue['cnt']>;
   lote: FormControl<MovimientoProductoFormRawValue['lote']>;
   fecMovimiento: FormControl<MovimientoProductoFormRawValue['fecMovimiento']>;
@@ -70,6 +71,7 @@ export class MovimientoProductoFormService {
       ),
       tipMovimiento: new FormControl(movimientoProductoRawValue.tipMovimiento),
       tip2Movimiento: new FormControl(movimientoProductoRawValue.tip2Movimiento),
+      precCompra: new FormControl(movimientoProductoRawValue.precCompra),
       cnt: new FormControl(movimientoProductoRawValue.cnt),
       lote: new FormControl(movimientoProductoRawValue.lote),
       fecMovimiento: new FormControl(movimientoProductoRawValue.fecMovimiento),

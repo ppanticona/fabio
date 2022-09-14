@@ -1,0 +1,90 @@
+<form name="deleteForm">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="agregarProducto">PRODUCTOS</h4>
+    <h4 class="modal-title" *ngIf="nuevoProveedor">NUEVO PROVEEDOR</h4>
+
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+
+    <p id="jhi-delete-cliente-heading"></p>
+
+    <div class="container">
+      <div *ngIf="agregarProducto">
+        <div class="row">
+          <div class="col-md-2 align-self-center">
+            <div class="form-group">
+              <label>Buscar por :</label>
+              <select class="form-control" required [(ngModel)]="tipoBusqueda" name="tipoBusqueda">
+                <option value="cod">codigo</option>
+                <option value="desc">descripcion</option>
+              </select>
+              <div class="invalid-feedback">Debe Seleccionar un criterio</div>
+            </div>
+          </div>
+
+          <div class="col-md-9 align-self-center">
+            <div class="form-group col-md-6">
+              <label> </label>
+              <input type="text" class="form-control" id="cadenaBusqueda" [(ngModel)]="cadenaBusqueda" name="cadenaBusqueda" />
+            </div>
+          </div>
+          <div class="col-md-1 align-self-center">
+            <button type="button" class="btn btn-info btn-block" (click)="buscarProducto()">
+              <fa-icon [icon]="faMagnifyingGlass" [fixedWidth]="true"></fa-icon>
+            </button>
+          </div>
+        </div>
+        <hr class="mt-2 mb-3" />
+
+        {{ productoSeleccionado | json }}
+        <div class="row">
+          <div class="card">
+            <div class="card-body table-responsive">
+              <table class="table table-light table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Precio de Compra</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="cursor: pointer"
+                    *ngFor="let detalle of resultadoBusqueda; let i = index; trackBy: trackByFn"
+                    (click)="seleccionaProducto(detalle)"
+                  >
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ detalle.codProducto }}</td>
+                    <td>{{ detalle.descripcion }}</td>
+                    <td>{{ detalle.costoProd | number: '1.2-2' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row"></div>
+        <div class="row" *ngIf="productoExiste">
+          <div class="alert alert-warning" role="alert">Ya existe un producto registrado con la descripcion.</div>
+        </div>
+      </div>
+      <div *ngIf="buscandoProducto">BUSCANDO</div>
+    </div>
+  </div>
+
+  <div class="modal-footer" *ngIf="!buscandoProducto">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>cancelar</span>
+    </button>
+
+    <button data-cy="entityConfirmDeleteButton" (click)="registrar()" class="btn btn-success" *ngIf="nuevoProveedor">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span>Registrar</span>
+    </button>
+  </div>
+</form>

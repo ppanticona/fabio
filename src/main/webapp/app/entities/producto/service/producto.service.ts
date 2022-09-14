@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
@@ -8,6 +8,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IProducto, NewProducto } from '../producto.model';
+import { RestProveedor } from '../../proveedor/service/proveedor.service';
 
 export type PartialUpdateProducto = Partial<IProducto> & Pick<IProducto, 'id'>;
 
@@ -77,6 +78,36 @@ export class ProductoService {
 
   compareProducto(o1: Pick<IProducto, 'id'> | null, o2: Pick<IProducto, 'id'> | null): boolean {
     return o1 && o2 ? this.getProductoIdentifier(o1) === this.getProductoIdentifier(o2) : o1 === o2;
+  }
+
+  findByCodProd(codProd: string): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<IProducto>(`${this.resourceUrl}/codprod/${codProd}`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
+
+  findCadenaInDescripcion(cadena: string): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<RestProveedor>(`/api/productosPorDescripcion/${cadena}`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
+
+  findByCodProducto(cadena: string): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<RestProveedor>(`/api/productosPorCodigo/${cadena}`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
   }
 
   addProductoToCollectionIfMissing<Type extends Pick<IProducto, 'id'>>(

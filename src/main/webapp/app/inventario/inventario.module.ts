@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { InventarioIngresoComponent } from './ingreso/inventario-ingreso.component';
 import { InventarioIngresoDialogComponent } from './ingreso/inventario-ingreso-dialog.component';
-
+import { InventarioIngresoDialog2Component } from './ingreso/inventario-ingreso-dialog-2.component';
 import { InventarioSalidaComponent } from './salida/inventario-salida.component';
 import { InventarioSalidaDialogComponent } from './salida/inventario-salida-dialog.component';
 
@@ -21,6 +21,7 @@ import { INVENTARIO_ROUTE } from './inventario.route';
   declarations: [
     InventarioIngresoComponent,
     InventarioIngresoDialogComponent,
+    InventarioIngresoDialog2Component,
     InventarioSalidaComponent,
     InventarioSalidaDialogComponent,
     InventarioProductosComponent,
@@ -30,6 +31,7 @@ import { INVENTARIO_ROUTE } from './inventario.route';
   ],
   entryComponents: [
     InventarioIngresoDialogComponent,
+    InventarioIngresoDialog2Component,
     InventarioSalidaDialogComponent,
     InventarioProductosDialogComponent,
     InventarioReportesDialogComponent,

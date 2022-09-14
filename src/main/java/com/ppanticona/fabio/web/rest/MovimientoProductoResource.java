@@ -2,10 +2,12 @@ package com.ppanticona.fabio.web.rest;
 
 import com.ppanticona.fabio.domain.MovimientoProducto;
 import com.ppanticona.fabio.repository.MovimientoProductoRepository;
+import com.ppanticona.fabio.service.MovimientoProductoService;
 import com.ppanticona.fabio.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -13,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -33,9 +36,14 @@ public class MovimientoProductoResource {
     private String applicationName;
 
     private final MovimientoProductoRepository movimientoProductoRepository;
+    private final MovimientoProductoService movimientoProductoService;
 
-    public MovimientoProductoResource(MovimientoProductoRepository movimientoProductoRepository) {
+    public MovimientoProductoResource(
+        MovimientoProductoRepository movimientoProductoRepository,
+        MovimientoProductoService movimientoProductoService
+    ) {
         this.movimientoProductoRepository = movimientoProductoRepository;
+        this.movimientoProductoService = movimientoProductoService;
     }
 
     /**
@@ -130,9 +138,13 @@ public class MovimientoProductoResource {
                 if (movimientoProducto.getTip2Movimiento() != null) {
                     existingMovimientoProducto.setTip2Movimiento(movimientoProducto.getTip2Movimiento());
                 }
+                if (movimientoProducto.getPrecCompra() != null) {
+                    existingMovimientoProducto.setPrecCompra(movimientoProducto.getPrecCompra());
+                }
                 if (movimientoProducto.getCnt() != null) {
                     existingMovimientoProducto.setCnt(movimientoProducto.getCnt());
                 }
+
                 if (movimientoProducto.getLote() != null) {
                     existingMovimientoProducto.setLote(movimientoProducto.getLote());
                 }
@@ -209,5 +221,18 @@ public class MovimientoProductoResource {
         log.debug("REST request to delete MovimientoProducto : {}", id);
         movimientoProductoRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+    }
+
+    @PostMapping("/movimiento-productos/registrarIngreso")
+    public ResponseEntity<String> registrarIngreso(@Valid @RequestBody Map<String, Object> Mapeo) throws URISyntaxException {
+        log.debug("REST request to registrarIngreso : {}", Mapeo);
+
+        StringBuffer data = new StringBuffer();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+
+        String result = movimientoProductoService.registrarIngreso(Mapeo);
+        data.append(result);
+        return ResponseEntity.ok().body(data.toString());
     }
 }

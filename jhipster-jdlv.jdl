@@ -280,6 +280,7 @@ entity Caja {
 entity MovimientoProducto {
     tipMovimiento String,
     tip2Movimiento String,
+    precCompra Double,
     cnt Double,
     lote String,
     fecMovimiento ZonedDateTime,

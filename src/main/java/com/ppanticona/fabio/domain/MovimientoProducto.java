@@ -26,6 +26,9 @@ public class MovimientoProducto implements Serializable {
     @Field("tip_2_movimiento")
     private String tip2Movimiento;
 
+    @Field("prec_compra")
+    private Double precCompra;
+
     @Field("cnt")
     private Double cnt;
 
@@ -117,6 +120,19 @@ public class MovimientoProducto implements Serializable {
 
     public void setTip2Movimiento(String tip2Movimiento) {
         this.tip2Movimiento = tip2Movimiento;
+    }
+
+    public Double getPrecCompra() {
+        return this.precCompra;
+    }
+
+    public MovimientoProducto precCompra(Double precCompra) {
+        this.setPrecCompra(precCompra);
+        return this;
+    }
+
+    public void setPrecCompra(Double precCompra) {
+        this.precCompra = precCompra;
     }
 
     public Double getCnt() {
@@ -327,6 +343,7 @@ public class MovimientoProducto implements Serializable {
             "id=" + getId() +
             ", tipMovimiento='" + getTipMovimiento() + "'" +
             ", tip2Movimiento='" + getTip2Movimiento() + "'" +
+            ", precCompra=" + getPrecCompra() +
             ", cnt=" + getCnt() +
             ", lote='" + getLote() + "'" +
             ", fecMovimiento='" + getFecMovimiento() + "'" +

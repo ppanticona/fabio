@@ -37,6 +37,9 @@ class MovimientoProductoResourceIT {
     private static final String DEFAULT_TIP_2_MOVIMIENTO = "AAAAAAAAAA";
     private static final String UPDATED_TIP_2_MOVIMIENTO = "BBBBBBBBBB";
 
+    private static final Double DEFAULT_PREC_COMPRA = 1D;
+    private static final Double UPDATED_PREC_COMPRA = 2D;
+
     private static final Double DEFAULT_CNT = 1D;
     private static final Double UPDATED_CNT = 2D;
 
@@ -91,6 +94,7 @@ class MovimientoProductoResourceIT {
         MovimientoProducto movimientoProducto = new MovimientoProducto()
             .tipMovimiento(DEFAULT_TIP_MOVIMIENTO)
             .tip2Movimiento(DEFAULT_TIP_2_MOVIMIENTO)
+            .precCompra(DEFAULT_PREC_COMPRA)
             .cnt(DEFAULT_CNT)
             .lote(DEFAULT_LOTE)
             .fecMovimiento(DEFAULT_FEC_MOVIMIENTO)
@@ -115,6 +119,7 @@ class MovimientoProductoResourceIT {
         MovimientoProducto movimientoProducto = new MovimientoProducto()
             .tipMovimiento(UPDATED_TIP_MOVIMIENTO)
             .tip2Movimiento(UPDATED_TIP_2_MOVIMIENTO)
+            .precCompra(UPDATED_PREC_COMPRA)
             .cnt(UPDATED_CNT)
             .lote(UPDATED_LOTE)
             .fecMovimiento(UPDATED_FEC_MOVIMIENTO)
@@ -151,6 +156,7 @@ class MovimientoProductoResourceIT {
         MovimientoProducto testMovimientoProducto = movimientoProductoList.get(movimientoProductoList.size() - 1);
         assertThat(testMovimientoProducto.getTipMovimiento()).isEqualTo(DEFAULT_TIP_MOVIMIENTO);
         assertThat(testMovimientoProducto.getTip2Movimiento()).isEqualTo(DEFAULT_TIP_2_MOVIMIENTO);
+        assertThat(testMovimientoProducto.getPrecCompra()).isEqualTo(DEFAULT_PREC_COMPRA);
         assertThat(testMovimientoProducto.getCnt()).isEqualTo(DEFAULT_CNT);
         assertThat(testMovimientoProducto.getLote()).isEqualTo(DEFAULT_LOTE);
         assertThat(testMovimientoProducto.getFecMovimiento()).isEqualTo(DEFAULT_FEC_MOVIMIENTO);
@@ -286,6 +292,7 @@ class MovimientoProductoResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(movimientoProducto.getId())))
             .andExpect(jsonPath("$.[*].tipMovimiento").value(hasItem(DEFAULT_TIP_MOVIMIENTO)))
             .andExpect(jsonPath("$.[*].tip2Movimiento").value(hasItem(DEFAULT_TIP_2_MOVIMIENTO)))
+            .andExpect(jsonPath("$.[*].precCompra").value(hasItem(DEFAULT_PREC_COMPRA.doubleValue())))
             .andExpect(jsonPath("$.[*].cnt").value(hasItem(DEFAULT_CNT.doubleValue())))
             .andExpect(jsonPath("$.[*].lote").value(hasItem(DEFAULT_LOTE)))
             .andExpect(jsonPath("$.[*].fecMovimiento").value(hasItem(sameInstant(DEFAULT_FEC_MOVIMIENTO))))
@@ -312,6 +319,7 @@ class MovimientoProductoResourceIT {
             .andExpect(jsonPath("$.id").value(movimientoProducto.getId()))
             .andExpect(jsonPath("$.tipMovimiento").value(DEFAULT_TIP_MOVIMIENTO))
             .andExpect(jsonPath("$.tip2Movimiento").value(DEFAULT_TIP_2_MOVIMIENTO))
+            .andExpect(jsonPath("$.precCompra").value(DEFAULT_PREC_COMPRA.doubleValue()))
             .andExpect(jsonPath("$.cnt").value(DEFAULT_CNT.doubleValue()))
             .andExpect(jsonPath("$.lote").value(DEFAULT_LOTE))
             .andExpect(jsonPath("$.fecMovimiento").value(sameInstant(DEFAULT_FEC_MOVIMIENTO)))
@@ -343,6 +351,7 @@ class MovimientoProductoResourceIT {
         updatedMovimientoProducto
             .tipMovimiento(UPDATED_TIP_MOVIMIENTO)
             .tip2Movimiento(UPDATED_TIP_2_MOVIMIENTO)
+            .precCompra(UPDATED_PREC_COMPRA)
             .cnt(UPDATED_CNT)
             .lote(UPDATED_LOTE)
             .fecMovimiento(UPDATED_FEC_MOVIMIENTO)
@@ -369,6 +378,7 @@ class MovimientoProductoResourceIT {
         MovimientoProducto testMovimientoProducto = movimientoProductoList.get(movimientoProductoList.size() - 1);
         assertThat(testMovimientoProducto.getTipMovimiento()).isEqualTo(UPDATED_TIP_MOVIMIENTO);
         assertThat(testMovimientoProducto.getTip2Movimiento()).isEqualTo(UPDATED_TIP_2_MOVIMIENTO);
+        assertThat(testMovimientoProducto.getPrecCompra()).isEqualTo(UPDATED_PREC_COMPRA);
         assertThat(testMovimientoProducto.getCnt()).isEqualTo(UPDATED_CNT);
         assertThat(testMovimientoProducto.getLote()).isEqualTo(UPDATED_LOTE);
         assertThat(testMovimientoProducto.getFecMovimiento()).isEqualTo(UPDATED_FEC_MOVIMIENTO);
@@ -451,9 +461,10 @@ class MovimientoProductoResourceIT {
         partialUpdatedMovimientoProducto
             .tipMovimiento(UPDATED_TIP_MOVIMIENTO)
             .tip2Movimiento(UPDATED_TIP_2_MOVIMIENTO)
-            .version(UPDATED_VERSION)
+            .fecMovimiento(UPDATED_FEC_MOVIMIENTO)
+            .usuCrea(UPDATED_USU_CREA)
             .ipCrea(UPDATED_IP_CREA)
-            .fecModif(UPDATED_FEC_MODIF)
+            .usuModif(UPDATED_USU_MODIF)
             .ipModif(UPDATED_IP_MODIF);
 
         restMovimientoProductoMockMvc
@@ -470,16 +481,17 @@ class MovimientoProductoResourceIT {
         MovimientoProducto testMovimientoProducto = movimientoProductoList.get(movimientoProductoList.size() - 1);
         assertThat(testMovimientoProducto.getTipMovimiento()).isEqualTo(UPDATED_TIP_MOVIMIENTO);
         assertThat(testMovimientoProducto.getTip2Movimiento()).isEqualTo(UPDATED_TIP_2_MOVIMIENTO);
+        assertThat(testMovimientoProducto.getPrecCompra()).isEqualTo(DEFAULT_PREC_COMPRA);
         assertThat(testMovimientoProducto.getCnt()).isEqualTo(DEFAULT_CNT);
         assertThat(testMovimientoProducto.getLote()).isEqualTo(DEFAULT_LOTE);
-        assertThat(testMovimientoProducto.getFecMovimiento()).isEqualTo(DEFAULT_FEC_MOVIMIENTO);
-        assertThat(testMovimientoProducto.getVersion()).isEqualTo(UPDATED_VERSION);
+        assertThat(testMovimientoProducto.getFecMovimiento()).isEqualTo(UPDATED_FEC_MOVIMIENTO);
+        assertThat(testMovimientoProducto.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testMovimientoProducto.getIndDel()).isEqualTo(DEFAULT_IND_DEL);
         assertThat(testMovimientoProducto.getFecCrea()).isEqualTo(DEFAULT_FEC_CREA);
-        assertThat(testMovimientoProducto.getUsuCrea()).isEqualTo(DEFAULT_USU_CREA);
+        assertThat(testMovimientoProducto.getUsuCrea()).isEqualTo(UPDATED_USU_CREA);
         assertThat(testMovimientoProducto.getIpCrea()).isEqualTo(UPDATED_IP_CREA);
-        assertThat(testMovimientoProducto.getFecModif()).isEqualTo(UPDATED_FEC_MODIF);
-        assertThat(testMovimientoProducto.getUsuModif()).isEqualTo(DEFAULT_USU_MODIF);
+        assertThat(testMovimientoProducto.getFecModif()).isEqualTo(DEFAULT_FEC_MODIF);
+        assertThat(testMovimientoProducto.getUsuModif()).isEqualTo(UPDATED_USU_MODIF);
         assertThat(testMovimientoProducto.getIpModif()).isEqualTo(UPDATED_IP_MODIF);
     }
 
@@ -497,6 +509,7 @@ class MovimientoProductoResourceIT {
         partialUpdatedMovimientoProducto
             .tipMovimiento(UPDATED_TIP_MOVIMIENTO)
             .tip2Movimiento(UPDATED_TIP_2_MOVIMIENTO)
+            .precCompra(UPDATED_PREC_COMPRA)
             .cnt(UPDATED_CNT)
             .lote(UPDATED_LOTE)
             .fecMovimiento(UPDATED_FEC_MOVIMIENTO)
@@ -523,6 +536,7 @@ class MovimientoProductoResourceIT {
         MovimientoProducto testMovimientoProducto = movimientoProductoList.get(movimientoProductoList.size() - 1);
         assertThat(testMovimientoProducto.getTipMovimiento()).isEqualTo(UPDATED_TIP_MOVIMIENTO);
         assertThat(testMovimientoProducto.getTip2Movimiento()).isEqualTo(UPDATED_TIP_2_MOVIMIENTO);
+        assertThat(testMovimientoProducto.getPrecCompra()).isEqualTo(UPDATED_PREC_COMPRA);
         assertThat(testMovimientoProducto.getCnt()).isEqualTo(UPDATED_CNT);
         assertThat(testMovimientoProducto.getLote()).isEqualTo(UPDATED_LOTE);
         assertThat(testMovimientoProducto.getFecMovimiento()).isEqualTo(UPDATED_FEC_MOVIMIENTO);

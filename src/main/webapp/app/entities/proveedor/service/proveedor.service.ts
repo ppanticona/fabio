@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
@@ -77,6 +77,15 @@ export class ProveedorService {
     return o1 && o2 ? this.getProveedorIdentifier(o1) === this.getProveedorIdentifier(o2) : o1 === o2;
   }
 
+  findByTipAndNroCli(tipDocProv: string, nroDocProv: string): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<RestProveedor>(`${this.resourceUrl}/buscarportn/${tipDocProv}/${nroDocProv}`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
   addProveedorToCollectionIfMissing<Type extends Pick<IProveedor, 'id'>>(
     proveedorCollection: Type[],
     ...proveedorsToCheck: (Type | null | undefined)[]
