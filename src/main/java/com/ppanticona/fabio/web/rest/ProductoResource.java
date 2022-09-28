@@ -2,6 +2,7 @@ package com.ppanticona.fabio.web.rest;
 
 import com.ppanticona.fabio.domain.Producto;
 import com.ppanticona.fabio.repository.ProductoRepository;
+import com.ppanticona.fabio.service.ProductoService;
 import com.ppanticona.fabio.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +38,12 @@ public class ProductoResource {
 
     private final ProductoRepository productoRepository;
 
-    public ProductoResource(ProductoRepository productoRepository) {
+    private final ProductoService productoService;
+
+    public ProductoResource(ProductoRepository productoRepository, ProductoService productoService) {
         this.productoRepository = productoRepository;
+
+        this.productoService = productoService;
     }
 
     /**
@@ -207,7 +213,7 @@ public class ProductoResource {
     @GetMapping("/productosActivos")
     public ResponseEntity<Map<String, Object>> getAllProductosActivos(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "3") int size
+        @RequestParam(defaultValue = "10") int size
     ) {
         log.debug("REST request to get all Productos con inddel false y estado 01 ");
 
@@ -234,11 +240,30 @@ public class ProductoResource {
         }
     }
 
+    @GetMapping("/productos/inventarioProductos")
+    public ResponseEntity<String> getAllInventarioProductos(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        log.debug("REST request to get inventario all Productos con inddel false y estado 01 ");
+
+        try {
+            String resultado = productoService.obtenerProductosInventario(page, size);
+
+            StringBuffer data = new StringBuffer();
+            data.append(resultado);
+
+            return new ResponseEntity(data.toString(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/productosPorDescripcion/{cadena}")
     public ResponseEntity<Map<String, Object>> getAllProductosPorDescripcion(
         @PathVariable(value = "cadena", required = true) final String cadena,
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "3") int size
+        @RequestParam(defaultValue = "10") int size
     ) {
         log.debug("REST request to get all Productos por regex descripcion con inddel false y estado 01 ");
 
@@ -269,7 +294,7 @@ public class ProductoResource {
     public ResponseEntity<Map<String, Object>> getAllProductosPorCodigoProducto(
         @PathVariable(value = "cadena", required = true) final String cadena,
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "3") int size
+        @RequestParam(defaultValue = "10") int size
     ) {
         log.debug("REST request to get all Productos por codigo con inddel false y estado 01 ");
 
@@ -320,5 +345,18 @@ public class ProductoResource {
         log.debug("REST request to delete Producto : {}", id);
         productoRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+    }
+
+    @PostMapping("/productos/registrarProducto")
+    public ResponseEntity<Producto> registrarProducto(@Valid @RequestBody Producto producto) throws URISyntaxException {
+        log.debug("REST request to save Producto : {}", producto);
+        if (producto.getId() != null) {
+            throw new BadRequestAlertException("A new producto cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Producto result = productoService.registrarProducto(producto);
+        return ResponseEntity
+            .created(new URI("/api/productos/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
+            .body(result);
     }
 }

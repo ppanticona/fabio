@@ -92,7 +92,7 @@ type RegComprasFormGroupContent = {
   fecModif: FormControl<RegComprasFormRawValue['fecModif']>;
   usuModif: FormControl<RegComprasFormRawValue['usuModif']>;
   ipModif: FormControl<RegComprasFormRawValue['ipModif']>;
-  proveedor: FormControl<RegComprasFormRawValue['proveedor']>;
+  orden: FormControl<RegComprasFormRawValue['orden']>;
 };
 
 export type RegComprasFormGroup = FormGroup<RegComprasFormGroupContent>;
@@ -198,7 +198,7 @@ export class RegComprasFormService {
       fecModif: new FormControl(regComprasRawValue.fecModif),
       usuModif: new FormControl(regComprasRawValue.usuModif),
       ipModif: new FormControl(regComprasRawValue.ipModif),
-      proveedor: new FormControl(regComprasRawValue.proveedor),
+      orden: new FormControl(regComprasRawValue.orden),
     });
   }
 

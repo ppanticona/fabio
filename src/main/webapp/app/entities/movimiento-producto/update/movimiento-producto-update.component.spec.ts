@@ -13,6 +13,8 @@ import { IProducto } from 'app/entities/producto/producto.model';
 import { ProductoService } from 'app/entities/producto/service/producto.service';
 import { IRegVenta } from 'app/entities/reg-venta/reg-venta.model';
 import { RegVentaService } from 'app/entities/reg-venta/service/reg-venta.service';
+import { IOrden } from 'app/entities/orden/orden.model';
+import { OrdenService } from 'app/entities/orden/service/orden.service';
 import { IRegCompras } from 'app/entities/reg-compras/reg-compras.model';
 import { RegComprasService } from 'app/entities/reg-compras/service/reg-compras.service';
 
@@ -26,6 +28,7 @@ describe('MovimientoProducto Management Update Component', () => {
   let movimientoProductoService: MovimientoProductoService;
   let productoService: ProductoService;
   let regVentaService: RegVentaService;
+  let ordenService: OrdenService;
   let regComprasService: RegComprasService;
 
   beforeEach(() => {
@@ -51,6 +54,7 @@ describe('MovimientoProducto Management Update Component', () => {
     movimientoProductoService = TestBed.inject(MovimientoProductoService);
     productoService = TestBed.inject(ProductoService);
     regVentaService = TestBed.inject(RegVentaService);
+    ordenService = TestBed.inject(OrdenService);
     regComprasService = TestBed.inject(RegComprasService);
 
     comp = fixture.componentInstance;
@@ -101,6 +105,28 @@ describe('MovimientoProducto Management Update Component', () => {
       expect(comp.regVentasSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call Orden query and add missing value', () => {
+      const movimientoProducto: IMovimientoProducto = { id: 'CBA' };
+      const orden: IOrden = { id: 'd9f0e4e4-26c4-443a-b2bc-28db1f86802e' };
+      movimientoProducto.orden = orden;
+
+      const ordenCollection: IOrden[] = [{ id: '2423251a-2330-4797-9360-872761fce23d' }];
+      jest.spyOn(ordenService, 'query').mockReturnValue(of(new HttpResponse({ body: ordenCollection })));
+      const additionalOrdens = [orden];
+      const expectedCollection: IOrden[] = [...additionalOrdens, ...ordenCollection];
+      jest.spyOn(ordenService, 'addOrdenToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ movimientoProducto });
+      comp.ngOnInit();
+
+      expect(ordenService.query).toHaveBeenCalled();
+      expect(ordenService.addOrdenToCollectionIfMissing).toHaveBeenCalledWith(
+        ordenCollection,
+        ...additionalOrdens.map(expect.objectContaining)
+      );
+      expect(comp.ordensSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call RegCompras query and add missing value', () => {
       const movimientoProducto: IMovimientoProducto = { id: 'CBA' };
       const regCompras: IRegCompras = { id: '96a7f161-b431-4f00-957f-ff4d928aea90' };
@@ -129,6 +155,8 @@ describe('MovimientoProducto Management Update Component', () => {
       movimientoProducto.producto = producto;
       const regVenta: IRegVenta = { id: 'c9f792ab-ffb4-4af6-953c-3dfd8456b889' };
       movimientoProducto.regVenta = regVenta;
+      const orden: IOrden = { id: '327b626b-747b-4caa-8541-730c13829ecc' };
+      movimientoProducto.orden = orden;
       const regCompras: IRegCompras = { id: '85766275-eb9f-45b4-ad7c-be2fbe5551ad' };
       movimientoProducto.regCompras = regCompras;
 
@@ -137,6 +165,7 @@ describe('MovimientoProducto Management Update Component', () => {
 
       expect(comp.productosSharedCollection).toContain(producto);
       expect(comp.regVentasSharedCollection).toContain(regVenta);
+      expect(comp.ordensSharedCollection).toContain(orden);
       expect(comp.regComprasSharedCollection).toContain(regCompras);
       expect(comp.movimientoProducto).toEqual(movimientoProducto);
     });
@@ -228,6 +257,16 @@ describe('MovimientoProducto Management Update Component', () => {
         jest.spyOn(regVentaService, 'compareRegVenta');
         comp.compareRegVenta(entity, entity2);
         expect(regVentaService.compareRegVenta).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareOrden', () => {
+      it('Should forward to ordenService', () => {
+        const entity = { id: 'ABC' };
+        const entity2 = { id: 'CBA' };
+        jest.spyOn(ordenService, 'compareOrden');
+        comp.compareOrden(entity, entity2);
+        expect(ordenService.compareOrden).toHaveBeenCalledWith(entity, entity2);
       });
     });
 

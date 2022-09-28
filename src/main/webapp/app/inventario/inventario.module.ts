@@ -6,6 +6,7 @@ import { InventarioIngresoDialogComponent } from './ingreso/inventario-ingreso-d
 import { InventarioIngresoDialog2Component } from './ingreso/inventario-ingreso-dialog-2.component';
 import { InventarioSalidaComponent } from './salida/inventario-salida.component';
 import { InventarioSalidaDialogComponent } from './salida/inventario-salida-dialog.component';
+import { InventarioSalidaDialog2Component } from './salida/inventario-salida-dialog-2.component';
 
 import { InventarioProductosComponent } from './productos/inventario-productos.component';
 import { InventarioProductosDialogComponent } from './productos/inventario-productos-dialog.component';
@@ -24,6 +25,7 @@ import { INVENTARIO_ROUTE } from './inventario.route';
     InventarioIngresoDialog2Component,
     InventarioSalidaComponent,
     InventarioSalidaDialogComponent,
+    InventarioSalidaDialog2Component,
     InventarioProductosComponent,
     InventarioProductosDialogComponent,
     InventarioReportesComponent,
@@ -33,6 +35,7 @@ import { INVENTARIO_ROUTE } from './inventario.route';
     InventarioIngresoDialogComponent,
     InventarioIngresoDialog2Component,
     InventarioSalidaDialogComponent,
+    InventarioSalidaDialog2Component,
     InventarioProductosDialogComponent,
     InventarioReportesDialogComponent,
   ],

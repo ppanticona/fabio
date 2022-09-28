@@ -70,7 +70,7 @@ describe('RegCompras Form Service', () => {
             fecModif: expect.any(Object),
             usuModif: expect.any(Object),
             ipModif: expect.any(Object),
-            proveedor: expect.any(Object),
+            orden: expect.any(Object),
           })
         );
       });
@@ -131,7 +131,7 @@ describe('RegCompras Form Service', () => {
             fecModif: expect.any(Object),
             usuModif: expect.any(Object),
             ipModif: expect.any(Object),
-            proveedor: expect.any(Object),
+            orden: expect.any(Object),
           })
         );
       });

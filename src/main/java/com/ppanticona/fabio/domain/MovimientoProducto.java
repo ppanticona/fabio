@@ -26,6 +26,9 @@ public class MovimientoProducto implements Serializable {
     @Field("tip_2_movimiento")
     private String tip2Movimiento;
 
+    @Field("pre_venta")
+    private Double preVenta;
+
     @Field("prec_compra")
     private Double precCompra;
 
@@ -77,8 +80,13 @@ public class MovimientoProducto implements Serializable {
     private RegVenta regVenta;
 
     @DBRef
+    @Field("orden")
+    @JsonIgnoreProperties(value = { "cliente", "proveedor", "autorizacion" }, allowSetters = true)
+    private Orden orden;
+
+    @DBRef
     @Field("regCompras")
-    @JsonIgnoreProperties(value = { "proveedor" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orden" }, allowSetters = true)
     private RegCompras regCompras;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -120,6 +128,19 @@ public class MovimientoProducto implements Serializable {
 
     public void setTip2Movimiento(String tip2Movimiento) {
         this.tip2Movimiento = tip2Movimiento;
+    }
+
+    public Double getPreVenta() {
+        return this.preVenta;
+    }
+
+    public MovimientoProducto preVenta(Double preVenta) {
+        this.setPreVenta(preVenta);
+        return this;
+    }
+
+    public void setPreVenta(Double preVenta) {
+        this.preVenta = preVenta;
     }
 
     public Double getPrecCompra() {
@@ -304,6 +325,19 @@ public class MovimientoProducto implements Serializable {
         return this;
     }
 
+    public Orden getOrden() {
+        return this.orden;
+    }
+
+    public void setOrden(Orden orden) {
+        this.orden = orden;
+    }
+
+    public MovimientoProducto orden(Orden orden) {
+        this.setOrden(orden);
+        return this;
+    }
+
     public RegCompras getRegCompras() {
         return this.regCompras;
     }
@@ -343,6 +377,7 @@ public class MovimientoProducto implements Serializable {
             "id=" + getId() +
             ", tipMovimiento='" + getTipMovimiento() + "'" +
             ", tip2Movimiento='" + getTip2Movimiento() + "'" +
+            ", preVenta=" + getPreVenta() +
             ", precCompra=" + getPrecCompra() +
             ", cnt=" + getCnt() +
             ", lote='" + getLote() + "'" +

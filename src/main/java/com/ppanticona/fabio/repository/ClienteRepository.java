@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ClienteRepository extends MongoRepository<Cliente, String> {}
+public interface ClienteRepository extends MongoRepository<Cliente, String> {
+    Cliente findBytipDocCliAndNroDocCli(String tipDocProv, String nroDocProv);
+}

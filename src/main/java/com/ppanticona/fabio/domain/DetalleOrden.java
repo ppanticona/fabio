@@ -74,7 +74,7 @@ public class DetalleOrden implements Serializable {
 
     @DBRef
     @Field("orden")
-    @JsonIgnoreProperties(value = { "regVentas", "cliente", "autorizacion" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "cliente", "proveedor", "autorizacion" }, allowSetters = true)
     private Orden orden;
 
     @DBRef

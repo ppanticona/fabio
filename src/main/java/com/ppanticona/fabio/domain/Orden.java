@@ -1,10 +1,7 @@
 package com.ppanticona.fabio.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -73,13 +70,12 @@ public class Orden implements Serializable {
     private String ipModif;
 
     @DBRef
-    @Field("regVenta")
-    @JsonIgnoreProperties(value = { "orden" }, allowSetters = true)
-    private Set<RegVenta> regVentas = new HashSet<>();
-
-    @DBRef
     @Field("cliente")
     private Cliente cliente;
+
+    @DBRef
+    @Field("proveedor")
+    private Proveedor proveedor;
 
     @DBRef
     @Field("autorizacion")
@@ -282,37 +278,6 @@ public class Orden implements Serializable {
         this.ipModif = ipModif;
     }
 
-    public Set<RegVenta> getRegVentas() {
-        return this.regVentas;
-    }
-
-    public void setRegVentas(Set<RegVenta> regVentas) {
-        if (this.regVentas != null) {
-            this.regVentas.forEach(i -> i.setOrden(null));
-        }
-        if (regVentas != null) {
-            regVentas.forEach(i -> i.setOrden(this));
-        }
-        this.regVentas = regVentas;
-    }
-
-    public Orden regVentas(Set<RegVenta> regVentas) {
-        this.setRegVentas(regVentas);
-        return this;
-    }
-
-    public Orden addRegVenta(RegVenta regVenta) {
-        this.regVentas.add(regVenta);
-        regVenta.setOrden(this);
-        return this;
-    }
-
-    public Orden removeRegVenta(RegVenta regVenta) {
-        this.regVentas.remove(regVenta);
-        regVenta.setOrden(null);
-        return this;
-    }
-
     public Cliente getCliente() {
         return this.cliente;
     }
@@ -323,6 +288,19 @@ public class Orden implements Serializable {
 
     public Orden cliente(Cliente cliente) {
         this.setCliente(cliente);
+        return this;
+    }
+
+    public Proveedor getProveedor() {
+        return this.proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public Orden proveedor(Proveedor proveedor) {
+        this.setProveedor(proveedor);
         return this;
     }
 

@@ -36,6 +36,11 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" for="field_preVenta">Pre Venta</label>
+          <input type="number" class="form-control" name="preVenta" id="field_preVenta" data-cy="preVenta" formControlName="preVenta" />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" for="field_precCompra">Prec Compra</label>
           <input
             type="number"
@@ -180,6 +185,14 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="regVentaOption" *ngFor="let regVentaOption of regVentasSharedCollection">{{ regVentaOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_orden">Orden</label>
+          <select class="form-control" id="field_orden" data-cy="orden" name="orden" formControlName="orden" [compareWith]="compareOrden">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="ordenOption" *ngFor="let ordenOption of ordensSharedCollection">{{ ordenOption.id }}</option>
           </select>
         </div>
 

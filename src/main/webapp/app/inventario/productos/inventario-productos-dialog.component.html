@@ -27,17 +27,15 @@
 
         <div class="row">
           <div class="form-group col-md-6">
-            <label for="nroDocCli">Precio de Venta</label>
-            <input
-              type="text"
-              class="form-control"
-              id="nroDocCli"
-              placeholder="nro Documento"
-              [(ngModel)]="producto.valor"
-              name="nroDocCli"
-            />
+            <label for="valor">Precio de Venta</label>
+            <input type="text" class="form-control" id="valor" [(ngModel)]="producto.valor" name="valor" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="costoProd">Costo Prod</label>
+            <input type="text" class="form-control" id="costoProd" [(ngModel)]="producto.costoProd" name="costoProd" />
           </div>
         </div>
+        <div class="row"></div>
         <div class="row" *ngIf="productoExiste">
           <div class="alert alert-warning" role="alert">Ya existe un producto registrado con la descripcion.</div>
         </div>

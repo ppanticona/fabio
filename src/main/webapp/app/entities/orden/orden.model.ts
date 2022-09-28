@@ -1,5 +1,6 @@
 import dayjs from 'dayjs/esm';
 import { ICliente } from 'app/entities/cliente/cliente.model';
+import { IProveedor } from 'app/entities/proveedor/proveedor.model';
 import { IAutorizacion } from 'app/entities/autorizacion/autorizacion.model';
 
 export interface IOrden {
@@ -19,6 +20,7 @@ export interface IOrden {
   usuModif?: string | null;
   ipModif?: string | null;
   cliente?: Pick<ICliente, 'id'> | null;
+  proveedor?: Pick<IProveedor, 'id'> | null;
   autorizacion?: Pick<IAutorizacion, 'id'> | null;
 }
 

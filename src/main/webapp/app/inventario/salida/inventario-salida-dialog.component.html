@@ -1,9 +1,208 @@
 <form name="deleteForm">
   <div class="modal-header">
-    <h4 class="modal-title" *ngIf="aperturaCaja">APERTURAR CAJA</h4>
-    <h4 class="modal-title" *ngIf="cierreCaja">CERRAR CAJA</h4>
+    <h4 class="modal-title">NUEVA SALIDA</h4>
+
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
   </div>
 
-  <div class="modal-body"></div>
+  <div class="modal-body">
+    <div *ngIf="!registrandoIngreso">
+      <div class="row">
+        <div class="col-md-2 align-self-center">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Tipo Salida:</label>
+            <select class="form-control" required [(ngModel)]="tipSalida" name="tipSalida">
+              <option value="1">VENTA</option>
+              <option value="2">DONACION</option>
+              <option value="3">MOVIMIENTO ALMACEN</option>
+            </select>
+            <div class="invalid-feedback">Debe Seleccionar un tipo ingreso</div>
+          </div>
+        </div>
+        <div class="col-md-2 align-self-center">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Tip. Doc :</label>
+            <select class="form-control" id="exampleFormControlSelect1" required [(ngModel)]="tipDocIngreso" name="tipDocIngreso">
+              <option value="03">FACTURA</option>
+              <option value="01">BOLETA DE VENTA</option>
+              <option value="00">OTROS</option>
+            </select>
+            <div class="invalid-feedback">Debe Seleccionar un tipo documento</div>
+          </div>
+        </div>
+        <div class="col-md-6 align-self-center">
+          <div class="form-group">
+            <label>Numero Documento : </label>
+            <input
+              class="form-control"
+              type="text"
+              required
+              placeholder="Ingrese numero documento"
+              [(ngModel)]="numDocIngreso"
+              name="numDocIngreso"
+            />
+            <div class="invalid-feedback">Debe Ingresar un numero</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-2 mb-3" />
+      <div class="row">
+        <div class="col-md-2 align-self-center">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Tip. Doc. Cliente :</label>
+            <select class="form-control" required name="tipDocCli" [(ngModel)]="tipDocCli" (change)="buscarCliente()">
+              <option value="1">DNI</option>
+              <option value="6">RUC</option>
+              <option value="4">CARNÉ EXTRANJERIA</option>
+              <option value="7">PASAPORTE</option>
+              <option value="A">CEDULA DIPLOMATICA DE IDENTIDAD</option>
+              <option value="0">OTROS</option>
+            </select>
+            <div class="invalid-feedback">Debe Seleccionar un tipo documento</div>
+          </div>
+        </div>
+        <div class="col-md-4 align-self-center">
+          <div class="form-group">
+            <label>Numero Documento Cliente : </label>
+            <input
+              class="form-control"
+              type="text"
+              required
+              placeholder="Ingrese numero documento"
+              [(ngModel)]="numDocCli"
+              (focusout)="buscarCliente()"
+              (keyup.enter)="buscarCliente()"
+              name="numDocCli"
+            />
+            <div class="invalid-feedback">Debe Ingresar un numero</div>
+          </div>
+        </div>
+        <div class="col-md-6 align-self-center">
+          <div class="alert alert-warning" role="alert" *ngIf="!cliente?.nombresCli">
+            El cliente ingresado no existe! -
+            <a class="badge badge-success" (click)="registrarProveedorModal()">Registrar Cliente</a>
+          </div>
+          <div>
+            <h3>
+              <p class="text-info">{{ cliente?.nombresCli }}</p>
+            </h3>
+            <h5>
+              <p class="text-info">{{ cliente?.direccion }}</p>
+            </h5>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-2 mb-3" />
+      <div class="row">
+        <div class="col-md-2 align-self-center">
+          <div class="form-group">
+            <label>Código de Producto : </label>
+            <input
+              class="form-control"
+              type="text"
+              required
+              placeholder="Ingrese código"
+              [(ngModel)]="codProd"
+              (focusout)="buscarYasignarProductoxCod()"
+              (keyup.enter)="buscarYasignarProductoxCod()"
+              name="codProd"
+            />
+            <div class="invalid-feedback">Debe Ingresar un código</div>
+          </div>
+        </div>
+        <div class="col-md-4 align-self-center">
+          <div class="form-group">
+            <label>Descripción de Producto : </label>
+            <input class="form-control" type="text" disabled name="descProd" [(ngModel)]="descProd" />
+            <div class="invalid-feedback">Debe Ingresar una descripción</div>
+          </div>
+        </div>
+
+        <div class="col-md-1 align-self-center">
+          <button type="button" class="btn btn-info btn-block" (click)="buscarProductoModal()">
+            <fa-icon [icon]="faMagnifyingGlass" [fixedWidth]="true"></fa-icon>
+          </button>
+        </div>
+        <div class="col-md-2 align-self-center">
+          <div class="form-group">
+            <label>Precio de Venta : </label>
+            <input class="form-control" type="number" [(ngModel)]="precVentaDet" name="precVentaDet" disabled required />
+          </div>
+        </div>
+        <div class="col-md-2 align-self-center">
+          <div class="form-group">
+            <label>Cantidad : </label>
+            <input
+              class="form-control"
+              type="number"
+              [(ngModel)]="cantidadDet"
+              name="cantidadDet"
+              required
+              placeholder="Ingrese cantidad"
+              name="numDocCli"
+            />
+            <div class="invalid-feedback">Debe Ingresar una cantidad</div>
+          </div>
+        </div>
+
+        <div class="col-md-1 align-self-center">
+          <button
+            type="button"
+            (click)="agregarProductoADetalle()"
+            class="btn btn-info btn-block"
+            [disabled]="this.productoSeleccionado == null"
+          >
+            <fa-icon [icon]="faCirclePlus" [fixedWidth]="true"></fa-icon>
+          </button>
+        </div>
+      </div>
+
+      <hr class="mt-2 mb-3" />
+      <div class="row">
+        <div class="card">
+          <div class="card-body table-responsive">
+            <table class="table table-light table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Precio de Venta</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Subtotal</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of detalleIngreso; let i = index; trackBy: trackByFn">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ detalle.codProducto }}</td>
+                  <td>{{ detalle.descripcion }}</td>
+                  <td>{{ detalle.precVentaDet | number: '1.2-2' }}</td>
+                  <td>{{ detalle.cantidad | number: '1.2-2' }}</td>
+                  <td>{{ detalle.cantidad * detalle.precVentaDet | number: '1.2-2' }}</td>
+                  <td class="text-center">
+                    <a (click)="removeDetalle(detalle)"><fa-icon [icon]="faTrash" size="2x"> </fa-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="registrandoIngreso">REGISTRANDO INGRESO</div>
+  </div>
+
+  <div class="modal-footer" *ngIf="!registrandoIngreso">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>cancelar</span>
+    </button>
+
+    <button id="jhi-confirm-delete-cliente" data-cy="entityConfirmDeleteButton" class="btn btn-success" (click)="registrarSalida()">
+      <fa-icon icon="save"></fa-icon>&nbsp;<span>Registrar Salida</span>
+    </button>
+  </div>
 </form>

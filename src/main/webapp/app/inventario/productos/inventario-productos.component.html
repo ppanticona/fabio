@@ -24,54 +24,30 @@
 
   <jhi-alert></jhi-alert>
 
-  <div class="alert alert-warning" id="no-result" *ngIf="cajas?.length === 0">
+  <div class="alert alert-warning" id="no-result" *ngIf="inventarioProductos?.length === 0">
     <span>No cajas found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="cajas && cajas.length > 0">
+  <div class="table-responsive" id="entities" *ngIf="inventarioProductos && inventarioProductos.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
           <th scope="col"><span>Cod Producto</span></th>
           <th scope="col"><span>Descripcion</span></th>
-          <th scope="col"><span>Cantidad</span></th>
-          <th scope="col"><span>Valor</span></th>
+          <th scope="col"><span>Total Ingresos</span></th>
+          <th scope="col"><span>Total Salidas</span></th>
+          <th scope="col"><span>Stock Actual</span></th>
 
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let caja of cajas; trackBy: trackId" data-cy="entityTable">
-          <td>{{ caja.tipCaja }}</td>
-          <td>{{ caja.descripcion }}</td>
-          <td>{{ caja.estado }}</td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" class="btn btn-info btn-sm" data-cy="entityDetailsButton" *ngIf="caja.estado == '01'">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">Aperturar</span>
-              </button>
-              <button
-                type="submit"
-                (click)="cerrarCaja(caja)"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-                *ngIf="caja.estado == '02'"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">Cerrar</span>
-              </button>
-              <button type="submit" [routerLink]="['/caja', caja.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(caja)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </td>
+        <tr *ngFor="let producto of inventarioProductos; trackBy: trackId" data-cy="entityTable">
+          <td>{{ producto.codProducto }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.montoIngreso }}</td>
+          <td>{{ producto.montoSalida }}</td>
+          <td>{{ producto.montoIngreso - producto.montoSalida }}</td>
         </tr>
       </tbody>
     </table>

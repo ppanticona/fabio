@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
@@ -76,7 +76,15 @@ export class OrdenService {
   compareOrden(o1: Pick<IOrden, 'id'> | null, o2: Pick<IOrden, 'id'> | null): boolean {
     return o1 && o2 ? this.getOrdenIdentifier(o1) === this.getOrdenIdentifier(o2) : o1 === o2;
   }
-
+  listByTipOrden(tipOrden: string): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<RestOrden>(`/api/ordenesPorTipoOrden/${tipOrden}`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
   addOrdenToCollectionIfMissing<Type extends Pick<IOrden, 'id'>>(
     ordenCollection: Type[],
     ...ordensToCheck: (Type | null | undefined)[]

@@ -194,9 +194,9 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ detalle.codProducto }}</td>
                   <td>{{ detalle.descripcion }}</td>
-                  <td>{{ detalle.precVentaDet | number: '1.2-2' }}</td>
+                  <td>{{ detalle.precCompraDet | number: '1.2-2' }}</td>
                   <td>{{ detalle.cantidad | number: '1.2-2' }}</td>
-                  <td>{{ detalle.cantidad * detalle.precVentaDet | number: '1.2-2' }}</td>
+                  <td>{{ detalle.cantidad * detalle.precCompraDet | number: '1.2-2' }}</td>
                   <td class="text-center">
                     <a (click)="removeDetalle(detalle)"><fa-icon [icon]="faTrash" size="2x"> </fa-icon></a>
                   </td>

@@ -23,18 +23,18 @@
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="home"></fa-icon>
-              <span>Home</span>
+              <span>Inicio</span>
             </span>
           </a>
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
-          *ngSwitchCase="true"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
+          *jhiHasAnyAuthority="['ROLE_ADMIN']"
         >
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
@@ -342,7 +342,7 @@
         </li>
         <!-- AGREGADO PARA INVENTARIO-->
         <li
-          *jhiHasAnyAuthority="'ROLE_ADMIN'"
+          *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_INVENTARIADOR', 'ROLE_GERENTE']"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
@@ -395,7 +395,7 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
             <span *ngIf="!account?.imageUrl">
               <fa-icon icon="user"></fa-icon>
-              <span>Account</span>
+              <span>Cuenta</span>
             </span>
             <span *ngIf="account?.imageUrl">
               <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
@@ -411,7 +411,7 @@
                 data-cy="settings"
               >
                 <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
-                <span>Settings</span>
+                <span>Configuracion</span>
               </a>
             </li>
             <li *ngSwitchCase="true">
@@ -429,13 +429,13 @@
             <li *ngSwitchCase="true">
               <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
                 <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
-                <span>Sign out</span>
+                <span>Cerrar sesión</span>
               </a>
             </li>
             <li *ngSwitchCase="false">
               <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
                 <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
-                <span>Sign in</span>
+                <span>Ingresar</span>
               </a>
             </li>
             <li *ngSwitchCase="false">
@@ -447,7 +447,7 @@
                 data-cy="register"
               >
                 <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-                <span>Register</span>
+                <span>Registrar</span>
               </a>
             </li>
           </ul>

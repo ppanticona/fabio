@@ -1,5 +1,6 @@
 package com.ppanticona.fabio.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
@@ -188,8 +189,9 @@ public class RegCompras implements Serializable {
     private String ipModif;
 
     @DBRef
-    @Field("proveedor")
-    private Proveedor proveedor;
+    @Field("orden")
+    @JsonIgnoreProperties(value = { "cliente", "proveedor", "autorizacion" }, allowSetters = true)
+    private Orden orden;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -856,16 +858,16 @@ public class RegCompras implements Serializable {
         this.ipModif = ipModif;
     }
 
-    public Proveedor getProveedor() {
-        return this.proveedor;
+    public Orden getOrden() {
+        return this.orden;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setOrden(Orden orden) {
+        this.orden = orden;
     }
 
-    public RegCompras proveedor(Proveedor proveedor) {
-        this.setProveedor(proveedor);
+    public RegCompras orden(Orden orden) {
+        this.setOrden(orden);
         return this;
     }
 

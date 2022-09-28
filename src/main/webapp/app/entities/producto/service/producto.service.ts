@@ -110,6 +110,16 @@ export class ProductoService {
       .pipe(map((res: HttpResponse<any>) => res));
   }
 
+  listProductosInventario(): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<RestProveedor>(`/api/productos/inventarioProductos`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
+
   addProductoToCollectionIfMissing<Type extends Pick<IProducto, 'id'>>(
     productoCollection: Type[],
     ...productosToCheck: (Type | null | undefined)[]
@@ -129,7 +139,18 @@ export class ProductoService {
     }
     return productoCollection;
   }
+  registrarProducto(data: any): Observable<HttpResponse<any>> {
+    const body = JSON.stringify(data);
 
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http
+      .post<any>(`${this.resourceUrl}/registrarProducto`, body, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
   protected convertDateFromClient<T extends IProducto | NewProducto | PartialUpdateProducto>(producto: T): RestOf<T> {
     return {
       ...producto,

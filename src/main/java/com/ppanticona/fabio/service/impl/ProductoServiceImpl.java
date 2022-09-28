@@ -1,5 +1,7 @@
 package com.ppanticona.fabio.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ppanticona.fabio.component.ProductoInventarioConverter;
 import com.ppanticona.fabio.domain.Producto;
 import com.ppanticona.fabio.model.ProductoInventarioModel;
@@ -8,9 +10,14 @@ import com.ppanticona.fabio.repository.ProductoRepository;
 import com.ppanticona.fabio.repository.SecuenciasRepository;
 import com.ppanticona.fabio.service.ProductoService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +25,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final Logger log = LoggerFactory.getLogger(ProductoService.class);
 
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final SecuenciasRepository secuenciasRepository;
     private final MovimientoProductoRepository movimientoProductoRepository;
     private final ProductoRepository productoRepository;
@@ -60,21 +68,56 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public String obtenerProductosInventario() {
+    public String obtenerProductosInventario(int page, int size) {
         try {
-            List<Producto> listProductos = productoRepository.findAll();
+            Pageable paging = PageRequest.of(page, size);
+            Page<Producto> pageProductos = productoRepository.findAllByIndDelAndEstado(false, "01", paging);
+
+            List<Producto> productos = new ArrayList<Producto>();
+            productos = pageProductos.getContent();
             List<ProductoInventarioModel> listProductoInventarioModel = new ArrayList<ProductoInventarioModel>();
 
-            for (Producto p : listProductos) {
+            for (Producto p : productos) {
                 ProductoInventarioModel productoInventarioModel = productoInventarioConverter.convertEntity2Model(p); // convertimos el domain al modelo que tiene ingreso y salida
-                //   Double ingreso = movimientoProductoRepository.getSumCantidadPorCodProductoAndTipMovimiento(p.getCodProducto(), "I"); // obtenemos el valor total de cantidad por ingreso
-                //  productoInventarioModel.setMontoIngreso(ingreso); //asignamos valor obtenido
-                //  Double salida = movimientoProductoRepository.getSumCantidadPorCodProductoAndTipMovimiento(p.getCodProducto(), "S"); // obtenemos el valor total de cantidad por ingreso
-                //  productoInventarioModel.setMontoSalida(salida);
+                String ingreso = movimientoProductoRepository.sumCantByProductoAndTipMovimiento(p.getId(), "I"); // obtenemos el valor total de cantidad por ingreso
+
+                if (ingreso != null) {
+                    productoInventarioModel.setMontoIngreso(Double.valueOf(String.valueOf(ingreso))); //asignamos valor obtenido
+                } else {
+                    productoInventarioModel.setMontoIngreso(0.0);
+                }
+
+                String salida = movimientoProductoRepository.sumCantByProductoAndTipMovimiento(p.getId(), "S"); // obtenemos el valor total de cantidad por ingreso
+
+                if (salida != null) {
+                    productoInventarioModel.setMontoSalida(Double.valueOf(String.valueOf(salida))); //asignamos valor obtenido
+                } else {
+                    productoInventarioModel.setMontoSalida(0.0);
+                }
+
                 listProductoInventarioModel.add(productoInventarioModel);
             }
 
-            String jsonData = "{\"Result\":\"OK\",\"ServicioDetalle\":" + listProductoInventarioModel.toString() + "}";
+            Map<String, Object> response = new HashMap<>();
+            response.put("productos", listProductoInventarioModel.toString());
+            response.put("currentPage", pageProductos.getNumber());
+            response.put("totalItems", pageProductos.getTotalElements());
+            response.put("totalPages", pageProductos.getTotalPages());
+
+            String listProductoInventarioModelString = gson.toJson(listProductoInventarioModel);
+
+            this.log.debug("to string " + listProductoInventarioModel.toString());
+            this.log.debug("sin el yo  string " + listProductoInventarioModel);
+            String jsonData =
+                "{\"Result\":\"OK\",\"productos\":" +
+                listProductoInventarioModelString +
+                ",\"currentPage\":" +
+                pageProductos.getNumber() +
+                ",\"totalItems\":" +
+                pageProductos.getTotalElements() +
+                ",\"totalPages\":" +
+                pageProductos.getTotalPages() +
+                "}";
 
             return jsonData;
         } catch (Exception e) {

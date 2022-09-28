@@ -35,6 +35,7 @@ describe('Orden Form Service', () => {
             usuModif: expect.any(Object),
             ipModif: expect.any(Object),
             cliente: expect.any(Object),
+            proveedor: expect.any(Object),
             autorizacion: expect.any(Object),
           })
         );
@@ -61,6 +62,7 @@ describe('Orden Form Service', () => {
             usuModif: expect.any(Object),
             ipModif: expect.any(Object),
             cliente: expect.any(Object),
+            proveedor: expect.any(Object),
             autorizacion: expect.any(Object),
           })
         );

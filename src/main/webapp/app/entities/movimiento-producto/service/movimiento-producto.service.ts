@@ -95,6 +95,19 @@ export class MovimientoProductoService {
       .pipe(map((res: HttpResponse<any>) => res));
   }
 
+  registrarSalida(data: any): Observable<HttpResponse<any>> {
+    const body = JSON.stringify(data);
+
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http
+      .post<any>(`${this.resourceUrl}/registrarSalida`, body, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
+
   addMovimientoProductoToCollectionIfMissing<Type extends Pick<IMovimientoProducto, 'id'>>(
     movimientoProductoCollection: Type[],
     ...movimientoProductosToCheck: (Type | null | undefined)[]

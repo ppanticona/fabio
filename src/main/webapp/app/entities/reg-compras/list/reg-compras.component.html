@@ -83,7 +83,7 @@
           <th scope="col" jhiSortBy="fecModif"><span>Fec Modif</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="proveedor.id"><span>Proveedor</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="orden.id"><span>Orden</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -143,8 +143,8 @@
           <td>{{ regCompras.usuModif }}</td>
           <td>{{ regCompras.ipModif }}</td>
           <td>
-            <div *ngIf="regCompras.proveedor">
-              <a [routerLink]="['/proveedor', regCompras.proveedor.id, 'view']">{{ regCompras.proveedor?.id }}</a>
+            <div *ngIf="regCompras.orden">
+              <a [routerLink]="['/orden', regCompras.orden.id, 'view']">{{ regCompras.orden?.id }}</a>
             </div>
           </td>
           <td class="text-end">

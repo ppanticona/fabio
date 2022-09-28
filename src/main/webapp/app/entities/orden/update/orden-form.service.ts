@@ -49,6 +49,7 @@ type OrdenFormGroupContent = {
   usuModif: FormControl<OrdenFormRawValue['usuModif']>;
   ipModif: FormControl<OrdenFormRawValue['ipModif']>;
   cliente: FormControl<OrdenFormRawValue['cliente']>;
+  proveedor: FormControl<OrdenFormRawValue['proveedor']>;
   autorizacion: FormControl<OrdenFormRawValue['autorizacion']>;
 };
 
@@ -100,6 +101,7 @@ export class OrdenFormService {
       usuModif: new FormControl(ordenRawValue.usuModif),
       ipModif: new FormControl(ordenRawValue.ipModif),
       cliente: new FormControl(ordenRawValue.cliente),
+      proveedor: new FormControl(ordenRawValue.proveedor),
       autorizacion: new FormControl(ordenRawValue.autorizacion),
     });
   }

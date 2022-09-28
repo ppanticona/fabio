@@ -22,6 +22,7 @@ describe('MovimientoProducto Form Service', () => {
             id: expect.any(Object),
             tipMovimiento: expect.any(Object),
             tip2Movimiento: expect.any(Object),
+            preVenta: expect.any(Object),
             precCompra: expect.any(Object),
             cnt: expect.any(Object),
             lote: expect.any(Object),
@@ -36,6 +37,7 @@ describe('MovimientoProducto Form Service', () => {
             ipModif: expect.any(Object),
             producto: expect.any(Object),
             regVenta: expect.any(Object),
+            orden: expect.any(Object),
             regCompras: expect.any(Object),
           })
         );
@@ -49,6 +51,7 @@ describe('MovimientoProducto Form Service', () => {
             id: expect.any(Object),
             tipMovimiento: expect.any(Object),
             tip2Movimiento: expect.any(Object),
+            preVenta: expect.any(Object),
             precCompra: expect.any(Object),
             cnt: expect.any(Object),
             lote: expect.any(Object),
@@ -63,6 +66,7 @@ describe('MovimientoProducto Form Service', () => {
             ipModif: expect.any(Object),
             producto: expect.any(Object),
             regVenta: expect.any(Object),
+            orden: expect.any(Object),
             regCompras: expect.any(Object),
           })
         );

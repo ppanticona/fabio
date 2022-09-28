@@ -11,6 +11,8 @@ import { IProducto } from 'app/entities/producto/producto.model';
 import { ProductoService } from 'app/entities/producto/service/producto.service';
 import { IRegVenta } from 'app/entities/reg-venta/reg-venta.model';
 import { RegVentaService } from 'app/entities/reg-venta/service/reg-venta.service';
+import { IOrden } from 'app/entities/orden/orden.model';
+import { OrdenService } from 'app/entities/orden/service/orden.service';
 import { IRegCompras } from 'app/entities/reg-compras/reg-compras.model';
 import { RegComprasService } from 'app/entities/reg-compras/service/reg-compras.service';
 
@@ -24,6 +26,7 @@ export class MovimientoProductoUpdateComponent implements OnInit {
 
   productosSharedCollection: IProducto[] = [];
   regVentasSharedCollection: IRegVenta[] = [];
+  ordensSharedCollection: IOrden[] = [];
   regComprasSharedCollection: IRegCompras[] = [];
 
   editForm: MovimientoProductoFormGroup = this.movimientoProductoFormService.createMovimientoProductoFormGroup();
@@ -33,6 +36,7 @@ export class MovimientoProductoUpdateComponent implements OnInit {
     protected movimientoProductoFormService: MovimientoProductoFormService,
     protected productoService: ProductoService,
     protected regVentaService: RegVentaService,
+    protected ordenService: OrdenService,
     protected regComprasService: RegComprasService,
     protected activatedRoute: ActivatedRoute
   ) {}
@@ -40,6 +44,8 @@ export class MovimientoProductoUpdateComponent implements OnInit {
   compareProducto = (o1: IProducto | null, o2: IProducto | null): boolean => this.productoService.compareProducto(o1, o2);
 
   compareRegVenta = (o1: IRegVenta | null, o2: IRegVenta | null): boolean => this.regVentaService.compareRegVenta(o1, o2);
+
+  compareOrden = (o1: IOrden | null, o2: IOrden | null): boolean => this.ordenService.compareOrden(o1, o2);
 
   compareRegCompras = (o1: IRegCompras | null, o2: IRegCompras | null): boolean => this.regComprasService.compareRegCompras(o1, o2);
 
@@ -99,6 +105,10 @@ export class MovimientoProductoUpdateComponent implements OnInit {
       this.regVentasSharedCollection,
       movimientoProducto.regVenta
     );
+    this.ordensSharedCollection = this.ordenService.addOrdenToCollectionIfMissing<IOrden>(
+      this.ordensSharedCollection,
+      movimientoProducto.orden
+    );
     this.regComprasSharedCollection = this.regComprasService.addRegComprasToCollectionIfMissing<IRegCompras>(
       this.regComprasSharedCollection,
       movimientoProducto.regCompras
@@ -125,6 +135,12 @@ export class MovimientoProductoUpdateComponent implements OnInit {
         )
       )
       .subscribe((regVentas: IRegVenta[]) => (this.regVentasSharedCollection = regVentas));
+
+    this.ordenService
+      .query()
+      .pipe(map((res: HttpResponse<IOrden[]>) => res.body ?? []))
+      .pipe(map((ordens: IOrden[]) => this.ordenService.addOrdenToCollectionIfMissing<IOrden>(ordens, this.movimientoProducto?.orden)))
+      .subscribe((ordens: IOrden[]) => (this.ordensSharedCollection = ordens));
 
     this.regComprasService
       .query()

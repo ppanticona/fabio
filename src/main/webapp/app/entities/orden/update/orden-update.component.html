@@ -176,6 +176,21 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" for="field_proveedor">Proveedor</label>
+          <select
+            class="form-control"
+            id="field_proveedor"
+            data-cy="proveedor"
+            name="proveedor"
+            formControlName="proveedor"
+            [compareWith]="compareProveedor"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="proveedorOption" *ngFor="let proveedorOption of proveedorsSharedCollection">{{ proveedorOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" for="field_autorizacion">Autorizacion</label>
           <select
             class="form-control"

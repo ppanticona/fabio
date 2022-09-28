@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { InventarioIngresoDialog2Component } from './inventario-ingreso-dialog-2.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
@@ -12,7 +9,6 @@ import { User } from 'app/admin/user-management/user-management.model';
 import { IProveedor } from '../../entities/proveedor/proveedor.model';
 import { ProveedorService } from '../../entities/proveedor/service/proveedor.service';
 import { ProductoService } from '../../entities/producto/service/producto.service';
-import { AccountService } from '../../core/auth/account.service';
 import { MovimientoProductoService } from '../../entities/movimiento-producto/service/movimiento-producto.service';
 
 @Component({
@@ -27,6 +23,7 @@ export class InventarioIngresoDialogComponent {
   numDocIngreso: any;
   lote: any;
   precCompraDet: any;
+  precVentaDet: any;
   cantidadDet: any;
   faMagnifyingGlass = faMagnifyingGlass;
   faCirclePlus = faCirclePlus;
@@ -96,11 +93,13 @@ export class InventarioIngresoDialogComponent {
       this.productoSeleccionado = reason;
       this.descProd = reason.descripcion;
       this.codProd = reason.codProducto;
+      this.precVentaDet = reason.valor;
     });
   }
   agregarProductoADetalle(): void {
     this.productoSeleccionado.cantidad = this.cantidadDet;
     this.productoSeleccionado.precCompraDet = this.precCompraDet;
+    this.productoSeleccionado.precVentaDet = this.precVentaDet;
 
     this.detalleIngreso.push(this.productoSeleccionado);
     this.productoSeleccionado = null;

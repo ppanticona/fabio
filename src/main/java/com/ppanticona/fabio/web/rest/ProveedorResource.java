@@ -230,7 +230,7 @@ public class ProveedorResource {
         @PathVariable("tipDocProv") String tipDocProv,
         @PathVariable("nroDocProv") String nroDocProv
     ) {
-        log.debug("REST request to getClienteByTipAndNro Cliente : {}", tipDocProv, nroDocProv);
+        log.debug("REST request to getProveedorByTipAndNro Cliente : {}", tipDocProv, nroDocProv);
         Proveedor proveedor = proveedorRepository.findBytipDocProvAndNroDocProv(tipDocProv, nroDocProv);
         return ResponseEntity.ok().body(proveedor);
     }

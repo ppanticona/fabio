@@ -51,6 +51,10 @@ Generic styles
   background-color: red;
 }
 
+.form-control:disabled {
+  background-color: #c1c1c1;
+}
+
 .pad {
   padding: 10px;
 }

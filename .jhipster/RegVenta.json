@@ -212,7 +212,6 @@
   "relationships": [
     {
       "otherEntityName": "orden",
-      "otherEntityRelationshipName": "regVenta",
       "relationshipName": "orden",
       "relationshipType": "many-to-one"
     }

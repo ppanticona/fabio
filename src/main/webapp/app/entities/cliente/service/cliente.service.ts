@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
@@ -65,7 +65,15 @@ export class ClienteService {
       .get<RestCliente[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map(res => this.convertResponseArrayFromServer(res)));
   }
-
+  findByTipAndNroCli(tipDocCli: string, nroDocCli: string): Observable<HttpResponse<any>> {
+    const httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<RestCliente>(`${this.resourceUrl}/buscarportn/${tipDocCli}/${nroDocCli}`, {
+        headers: httpHeaders,
+        observe: 'response',
+      })
+      .pipe(map((res: HttpResponse<any>) => res));
+  }
   delete(id: string): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

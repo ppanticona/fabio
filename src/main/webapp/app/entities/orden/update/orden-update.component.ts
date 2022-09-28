@@ -12,6 +12,8 @@ import { EventManager, EventWithContent } from 'app/core/util/event-manager.serv
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { ICliente } from 'app/entities/cliente/cliente.model';
 import { ClienteService } from 'app/entities/cliente/service/cliente.service';
+import { IProveedor } from 'app/entities/proveedor/proveedor.model';
+import { ProveedorService } from 'app/entities/proveedor/service/proveedor.service';
 import { IAutorizacion } from 'app/entities/autorizacion/autorizacion.model';
 import { AutorizacionService } from 'app/entities/autorizacion/service/autorizacion.service';
 
@@ -24,6 +26,7 @@ export class OrdenUpdateComponent implements OnInit {
   orden: IOrden | null = null;
 
   clientesSharedCollection: ICliente[] = [];
+  proveedorsSharedCollection: IProveedor[] = [];
   autorizacionsSharedCollection: IAutorizacion[] = [];
 
   editForm: OrdenFormGroup = this.ordenFormService.createOrdenFormGroup();
@@ -34,11 +37,14 @@ export class OrdenUpdateComponent implements OnInit {
     protected ordenService: OrdenService,
     protected ordenFormService: OrdenFormService,
     protected clienteService: ClienteService,
+    protected proveedorService: ProveedorService,
     protected autorizacionService: AutorizacionService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareCliente = (o1: ICliente | null, o2: ICliente | null): boolean => this.clienteService.compareCliente(o1, o2);
+
+  compareProveedor = (o1: IProveedor | null, o2: IProveedor | null): boolean => this.proveedorService.compareProveedor(o1, o2);
 
   compareAutorizacion = (o1: IAutorizacion | null, o2: IAutorizacion | null): boolean =>
     this.autorizacionService.compareAutorizacion(o1, o2);
@@ -110,6 +116,10 @@ export class OrdenUpdateComponent implements OnInit {
       this.clientesSharedCollection,
       orden.cliente
     );
+    this.proveedorsSharedCollection = this.proveedorService.addProveedorToCollectionIfMissing<IProveedor>(
+      this.proveedorsSharedCollection,
+      orden.proveedor
+    );
     this.autorizacionsSharedCollection = this.autorizacionService.addAutorizacionToCollectionIfMissing<IAutorizacion>(
       this.autorizacionsSharedCollection,
       orden.autorizacion
@@ -122,6 +132,16 @@ export class OrdenUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<ICliente[]>) => res.body ?? []))
       .pipe(map((clientes: ICliente[]) => this.clienteService.addClienteToCollectionIfMissing<ICliente>(clientes, this.orden?.cliente)))
       .subscribe((clientes: ICliente[]) => (this.clientesSharedCollection = clientes));
+
+    this.proveedorService
+      .query()
+      .pipe(map((res: HttpResponse<IProveedor[]>) => res.body ?? []))
+      .pipe(
+        map((proveedors: IProveedor[]) =>
+          this.proveedorService.addProveedorToCollectionIfMissing<IProveedor>(proveedors, this.orden?.proveedor)
+        )
+      )
+      .subscribe((proveedors: IProveedor[]) => (this.proveedorsSharedCollection = proveedors));
 
     this.autorizacionService
       .query()

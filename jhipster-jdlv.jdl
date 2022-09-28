@@ -280,6 +280,7 @@ entity Caja {
 entity MovimientoProducto {
     tipMovimiento String,
     tip2Movimiento String,
+    preVenta Double,
     precCompra Double,
     cnt Double,
     lote String,
@@ -450,16 +451,18 @@ relationship ManyToOne {
   DetalleOrden{producto} to Producto
   DetalleOrden{promocion} to Promocion
   Orden{cliente} to Cliente
+  Orden{proveedor} to Proveedor
   Orden{autorizacion} to Autorizacion
   MovimientoProducto{producto} to Producto
   MovimientoProducto{regVenta} to RegVenta
+  MovimientoProducto{orden} to Orden
   MovimientoProducto{regCompras} to RegCompras 
-  RegCompras{proveedor} to Proveedor
+  RegVenta{orden} to Orden
+  RegCompras{orden} to Orden
 
 
 }
 
-relationship OneToMany{
-   Orden{regVenta} to RegVenta{orden}
-}
+
+
 

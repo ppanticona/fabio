@@ -1,6 +1,7 @@
 package com.ppanticona.fabio.web.rest;
 
 import com.ppanticona.fabio.domain.Cliente;
+import com.ppanticona.fabio.domain.Proveedor;
 import com.ppanticona.fabio.repository.ClienteRepository;
 import com.ppanticona.fabio.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -229,5 +230,15 @@ public class ClienteResource {
         log.debug("REST request to delete Cliente : {}", id);
         clienteRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+    }
+
+    @GetMapping("/clientes/buscarportn/{tipDocCli}/{nroDocCli}")
+    public ResponseEntity<Cliente> getClienteByTipAndNro(
+        @PathVariable("tipDocCli") String tipDocCli,
+        @PathVariable("nroDocCli") String nroDocCli
+    ) {
+        log.debug("REST request to getClienteByTipAndNro Cliente : {}", tipDocCli, nroDocCli);
+        Cliente cliente = clienteRepository.findBytipDocCliAndNroDocCli(tipDocCli, nroDocCli);
+        return ResponseEntity.ok().body(cliente);
     }
 }

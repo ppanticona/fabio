@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ICaja } from 'app/entities/caja/caja.model';
-import { CajaService } from 'app/entities/caja/service/caja.service';
 import { CajaDeleteDialogComponent } from 'app/entities/caja/delete/caja-delete-dialog.component';
 import { InventarioProductosDialogComponent } from './inventario-productos-dialog.component';
 import { AccountService } from 'app/core/auth/account.service';
@@ -11,6 +10,7 @@ import { Account } from 'app/core/auth/account.model';
 import { Subscription } from 'rxjs';
 import { User } from 'app/admin/user-management/user-management.model';
 import { UserManagementService } from 'app/admin/user-management/service/user-management.service';
+import { ProductoService } from '../../entities/producto/service/producto.service';
 @Component({
   selector: 'jhi-inventario-productos',
   templateUrl: './inventario-productos.component.html',
@@ -18,14 +18,15 @@ import { UserManagementService } from 'app/admin/user-management/service/user-ma
 export class InventarioProductosComponent implements OnInit {
   cajas?: ICaja[];
   isLoading = false;
-  isLoadingUsers = false;
+  isLoadingProductos = false;
   userCajeros: User[] | null = null;
+  inventarioProductos: any;
   account: Account | null = null;
   authSubscription?: Subscription;
 
   constructor(
     private userService: UserManagementService,
-    protected cajaService: CajaService,
+    protected productoService: ProductoService,
     private accountService: AccountService,
     protected modalService: NgbModal
   ) {}
@@ -33,7 +34,7 @@ export class InventarioProductosComponent implements OnInit {
   loadCajas(): void {
     this.isLoading = true;
 
-    this.cajaService.query().subscribe(
+    this.productoService.query().subscribe(
       (res: HttpResponse<ICaja[]>) => {
         this.isLoading = false;
         this.cajas = res.body ?? [];
@@ -44,19 +45,20 @@ export class InventarioProductosComponent implements OnInit {
     );
   }
 
-  loadAllUsers(): void {
-    this.isLoadingUsers = true;
-    this.userService.query().subscribe(
-      (res: HttpResponse<User[]>) => {
-        this.isLoadingUsers = false;
-        this.userCajeros = res.body?.filter(x => x.authorities?.includes('ROLE_CAJERO')) ?? [];
+  loadProductosInventario(): void {
+    this.isLoadingProductos = true;
+    this.productoService.listProductosInventario().subscribe(
+      (res: HttpResponse<any>) => {
+        this.isLoadingProductos = false;
+        this.inventarioProductos = res.body.productos ?? [];
       },
-      () => (this.isLoadingUsers = false)
+      () => (this.isLoadingProductos = false)
     );
   }
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    this.loadProductosInventario();
   }
 
   trackId(index: number, item: ICaja): string {

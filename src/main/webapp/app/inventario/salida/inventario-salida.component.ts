@@ -11,6 +11,7 @@ import { Account } from 'app/core/auth/account.model';
 import { Subscription } from 'rxjs';
 import { User } from 'app/admin/user-management/user-management.model';
 import { UserManagementService } from 'app/admin/user-management/service/user-management.service';
+import { OrdenService } from '../../entities/orden/service/orden.service';
 @Component({
   selector: 'jhi-inventario-salida',
   templateUrl: './inventario-salida.component.html',
@@ -18,88 +19,47 @@ import { UserManagementService } from 'app/admin/user-management/service/user-ma
 export class InventarioSalidaComponent implements OnInit {
   cajas?: ICaja[];
   isLoading = false;
-  isLoadingUsers = false;
+  isLoadingSalidas = false;
   userCajeros: User[] | null = null;
   account: Account | null = null;
   authSubscription?: Subscription;
+  listaSalidas: any;
 
   constructor(
     private userService: UserManagementService,
-    protected cajaService: CajaService,
+    protected ordenService: OrdenService,
     private accountService: AccountService,
     protected modalService: NgbModal
   ) {}
 
-  loadCajas(): void {
-    this.isLoading = true;
-
-    this.cajaService.query().subscribe(
-      (res: HttpResponse<ICaja[]>) => {
-        this.isLoading = false;
-        this.cajas = res.body ?? [];
+  loadAllSalidas(): void {
+    this.isLoadingSalidas = true;
+    this.ordenService.listByTipOrden('06').subscribe(
+      (res: HttpResponse<any>) => {
+        this.isLoadingSalidas = false;
+        this.listaSalidas = res.body.ordenes ?? [];
       },
-      () => {
-        this.isLoading = false;
-      }
-    );
-  }
-
-  loadAllUsers(): void {
-    this.isLoadingUsers = true;
-    this.userService.query().subscribe(
-      (res: HttpResponse<User[]>) => {
-        this.isLoadingUsers = false;
-        this.userCajeros = res.body?.filter(x => x.authorities?.includes('ROLE_CAJERO')) ?? [];
-      },
-      () => (this.isLoadingUsers = false)
+      () => (this.isLoadingSalidas = false)
     );
   }
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    this.loadAllSalidas();
   }
 
   trackId(index: number, item: ICaja): string {
     return item.id!;
   }
 
-  delete(caja: ICaja): void {
-    const modalRef = this.modalService.open(CajaDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.caja = caja;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.loadCajas();
-      }
-    });
-  }
-
-  aperturarCaja(caja: ICaja): void {
+  nuevaSalida(): void {
     const modalRef = this.modalService.open(InventarioSalidaDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.caja = caja;
-    modalRef.componentInstance.aperturaCaja = true;
-    modalRef.componentInstance.cierreCaja = false;
-    modalRef.componentInstance.userCajeros = this.userCajeros;
     modalRef.componentInstance.usuCrea = this.account?.login;
 
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'registrado') {
-        this.loadCajas();
-      }
-    });
-  }
-  cerrarCaja(caja: ICaja): void {
-    const modalRef = this.modalService.open(InventarioSalidaDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.caja = caja;
-    modalRef.componentInstance.aperturaCaja = false;
-    modalRef.componentInstance.cierreCaja = true;
-    modalRef.componentInstance.usuCrea = this.account?.login;
-
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'registrado') {
-        this.loadCajas();
+        this.loadAllSalidas();
       }
     });
   }

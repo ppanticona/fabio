@@ -1,5 +1,5 @@
 import dayjs from 'dayjs/esm';
-import { IProveedor } from 'app/entities/proveedor/proveedor.model';
+import { IOrden } from 'app/entities/orden/orden.model';
 
 export interface IRegCompras {
   id: string;
@@ -53,7 +53,7 @@ export interface IRegCompras {
   fecModif?: dayjs.Dayjs | null;
   usuModif?: string | null;
   ipModif?: string | null;
-  proveedor?: Pick<IProveedor, 'id'> | null;
+  orden?: Pick<IOrden, 'id'> | null;
 }
 
 export type NewRegCompras = Omit<IRegCompras, 'id'> & { id: null };

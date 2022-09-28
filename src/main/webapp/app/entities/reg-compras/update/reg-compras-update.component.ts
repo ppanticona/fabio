@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import { RegComprasFormService, RegComprasFormGroup } from './reg-compras-form.service';
 import { IRegCompras } from '../reg-compras.model';
 import { RegComprasService } from '../service/reg-compras.service';
-import { IProveedor } from 'app/entities/proveedor/proveedor.model';
-import { ProveedorService } from 'app/entities/proveedor/service/proveedor.service';
+import { IOrden } from 'app/entities/orden/orden.model';
+import { OrdenService } from 'app/entities/orden/service/orden.service';
 
 @Component({
   selector: 'jhi-reg-compras-update',
@@ -18,18 +18,18 @@ export class RegComprasUpdateComponent implements OnInit {
   isSaving = false;
   regCompras: IRegCompras | null = null;
 
-  proveedorsSharedCollection: IProveedor[] = [];
+  ordensSharedCollection: IOrden[] = [];
 
   editForm: RegComprasFormGroup = this.regComprasFormService.createRegComprasFormGroup();
 
   constructor(
     protected regComprasService: RegComprasService,
     protected regComprasFormService: RegComprasFormService,
-    protected proveedorService: ProveedorService,
+    protected ordenService: OrdenService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareProveedor = (o1: IProveedor | null, o2: IProveedor | null): boolean => this.proveedorService.compareProveedor(o1, o2);
+  compareOrden = (o1: IOrden | null, o2: IOrden | null): boolean => this.ordenService.compareOrden(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ regCompras }) => {
@@ -79,21 +79,14 @@ export class RegComprasUpdateComponent implements OnInit {
     this.regCompras = regCompras;
     this.regComprasFormService.resetForm(this.editForm, regCompras);
 
-    this.proveedorsSharedCollection = this.proveedorService.addProveedorToCollectionIfMissing<IProveedor>(
-      this.proveedorsSharedCollection,
-      regCompras.proveedor
-    );
+    this.ordensSharedCollection = this.ordenService.addOrdenToCollectionIfMissing<IOrden>(this.ordensSharedCollection, regCompras.orden);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.proveedorService
+    this.ordenService
       .query()
-      .pipe(map((res: HttpResponse<IProveedor[]>) => res.body ?? []))
-      .pipe(
-        map((proveedors: IProveedor[]) =>
-          this.proveedorService.addProveedorToCollectionIfMissing<IProveedor>(proveedors, this.regCompras?.proveedor)
-        )
-      )
-      .subscribe((proveedors: IProveedor[]) => (this.proveedorsSharedCollection = proveedors));
+      .pipe(map((res: HttpResponse<IOrden[]>) => res.body ?? []))
+      .pipe(map((ordens: IOrden[]) => this.ordenService.addOrdenToCollectionIfMissing<IOrden>(ordens, this.regCompras?.orden)))
+      .subscribe((ordens: IOrden[]) => (this.ordensSharedCollection = ordens));
   }
 }

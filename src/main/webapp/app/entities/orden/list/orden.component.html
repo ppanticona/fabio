@@ -48,6 +48,7 @@
           <th scope="col" jhiSortBy="usuModif"><span>Usu Modif</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="ipModif"><span>Ip Modif</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="cliente.id"><span>Cliente</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="proveedor.id"><span>Proveedor</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="autorizacion.id"><span>Autorizacion</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
@@ -74,6 +75,11 @@
           <td>
             <div *ngIf="orden.cliente">
               <a [routerLink]="['/cliente', orden.cliente.id, 'view']">{{ orden.cliente?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="orden.proveedor">
+              <a [routerLink]="['/proveedor', orden.proveedor.id, 'view']">{{ orden.proveedor?.id }}</a>
             </div>
           </td>
           <td>

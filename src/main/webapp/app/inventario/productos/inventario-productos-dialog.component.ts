@@ -39,7 +39,7 @@ export class InventarioProductosDialogComponent {
     this.producto.indDel = false;
     this.producto.ipCrea = '0.0.0.0';
     this.producto.urlImage = '-';
-    this.subscribeToSaveResponse(this.productoService.create(this.producto));
+    this.subscribeToSaveResponse(this.productoService.registrarProducto(this.producto));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IProducto>>): void {

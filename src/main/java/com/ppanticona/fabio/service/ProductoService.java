@@ -6,5 +6,5 @@ import java.util.Map;
 public interface ProductoService {
     public Producto registrarProducto(Producto productoBean);
 
-    public String obtenerProductosInventario();
+    public String obtenerProductosInventario(int page, int size);
 }

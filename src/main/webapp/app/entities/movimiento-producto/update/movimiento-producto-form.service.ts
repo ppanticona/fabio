@@ -35,6 +35,7 @@ type MovimientoProductoFormGroupContent = {
   id: FormControl<MovimientoProductoFormRawValue['id'] | NewMovimientoProducto['id']>;
   tipMovimiento: FormControl<MovimientoProductoFormRawValue['tipMovimiento']>;
   tip2Movimiento: FormControl<MovimientoProductoFormRawValue['tip2Movimiento']>;
+  preVenta: FormControl<MovimientoProductoFormRawValue['preVenta']>;
   precCompra: FormControl<MovimientoProductoFormRawValue['precCompra']>;
   cnt: FormControl<MovimientoProductoFormRawValue['cnt']>;
   lote: FormControl<MovimientoProductoFormRawValue['lote']>;
@@ -49,6 +50,7 @@ type MovimientoProductoFormGroupContent = {
   ipModif: FormControl<MovimientoProductoFormRawValue['ipModif']>;
   producto: FormControl<MovimientoProductoFormRawValue['producto']>;
   regVenta: FormControl<MovimientoProductoFormRawValue['regVenta']>;
+  orden: FormControl<MovimientoProductoFormRawValue['orden']>;
   regCompras: FormControl<MovimientoProductoFormRawValue['regCompras']>;
 };
 
@@ -71,6 +73,7 @@ export class MovimientoProductoFormService {
       ),
       tipMovimiento: new FormControl(movimientoProductoRawValue.tipMovimiento),
       tip2Movimiento: new FormControl(movimientoProductoRawValue.tip2Movimiento),
+      preVenta: new FormControl(movimientoProductoRawValue.preVenta),
       precCompra: new FormControl(movimientoProductoRawValue.precCompra),
       cnt: new FormControl(movimientoProductoRawValue.cnt),
       lote: new FormControl(movimientoProductoRawValue.lote),
@@ -95,6 +98,7 @@ export class MovimientoProductoFormService {
       ipModif: new FormControl(movimientoProductoRawValue.ipModif),
       producto: new FormControl(movimientoProductoRawValue.producto),
       regVenta: new FormControl(movimientoProductoRawValue.regVenta),
+      orden: new FormControl(movimientoProductoRawValue.orden),
       regCompras: new FormControl(movimientoProductoRawValue.regCompras),
     });
   }

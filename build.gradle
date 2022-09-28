@@ -204,6 +204,7 @@ dependencies {
     implementation "io.micrometer:micrometer-registry-prometheus"
     implementation "io.dropwizard.metrics:metrics-core"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
+    implementation  'com.google.code.gson:gson:2.9.0'
 }
 
 if (project.hasProperty("gae")) {

@@ -214,10 +214,10 @@
         <dd>
           <span>{{ regCompras.ipModif }}</span>
         </dd>
-        <dt><span>Proveedor</span></dt>
+        <dt><span>Orden</span></dt>
         <dd>
-          <div *ngIf="regCompras.proveedor">
-            <a [routerLink]="['/proveedor', regCompras.proveedor.id, 'view']">{{ regCompras.proveedor?.id }}</a>
+          <div *ngIf="regCompras.orden">
+            <a [routerLink]="['/orden', regCompras.orden.id, 'view']">{{ regCompras.orden?.id }}</a>
           </div>
         </dd>
       </dl>

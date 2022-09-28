@@ -231,8 +231,8 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "proveedor",
-      "relationshipName": "proveedor",
+      "otherEntityName": "orden",
+      "relationshipName": "orden",
       "relationshipType": "many-to-one"
     }
   ],

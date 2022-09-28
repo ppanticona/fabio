@@ -273,5 +273,69 @@ public class ProductoInventarioModel {
         this.ipModif = ipModif;
     }
 
+    @Override
+    public String toString() {
+        return (
+            "ProductoInventarioModel{" +
+            "id='" +
+            id +
+            '\'' +
+            ", codProducto='" +
+            codProducto +
+            '\'' +
+            ", codQr='" +
+            codQr +
+            '\'' +
+            ", codBarra='" +
+            codBarra +
+            '\'' +
+            ", descripcion='" +
+            descripcion +
+            '\'' +
+            ", detalleDesc='" +
+            detalleDesc +
+            '\'' +
+            ", valor=" +
+            valor +
+            ", montoIngreso=" +
+            montoIngreso +
+            ", montoSalida=" +
+            montoSalida +
+            ", fecIniVig=" +
+            fecIniVig +
+            ", fecFinVig=" +
+            fecFinVig +
+            ", costoProd=" +
+            costoProd +
+            ", urlImage='" +
+            urlImage +
+            '\'' +
+            ", estado='" +
+            estado +
+            '\'' +
+            ", version=" +
+            version +
+            ", indDel=" +
+            indDel +
+            ", fecCrea=" +
+            fecCrea +
+            ", usuCrea='" +
+            usuCrea +
+            '\'' +
+            ", ipCrea='" +
+            ipCrea +
+            '\'' +
+            ", fecModif=" +
+            fecModif +
+            ", usuModif='" +
+            usuModif +
+            '\'' +
+            ", ipModif='" +
+            ipModif +
+            '\'' +
+            '}'
+        );
+    }
+
     public ProductoInventarioModel() {}
 }

@@ -78,14 +78,13 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "regVenta",
-      "otherEntityRelationshipName": "orden",
-      "relationshipName": "regVenta",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityName": "cliente",
       "relationshipName": "cliente",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "proveedor",
+      "relationshipName": "proveedor",
       "relationshipType": "many-to-one"
     },
     {

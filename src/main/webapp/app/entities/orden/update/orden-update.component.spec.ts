@@ -11,6 +11,8 @@ import { OrdenService } from '../service/orden.service';
 import { IOrden } from '../orden.model';
 import { ICliente } from 'app/entities/cliente/cliente.model';
 import { ClienteService } from 'app/entities/cliente/service/cliente.service';
+import { IProveedor } from 'app/entities/proveedor/proveedor.model';
+import { ProveedorService } from 'app/entities/proveedor/service/proveedor.service';
 import { IAutorizacion } from 'app/entities/autorizacion/autorizacion.model';
 import { AutorizacionService } from 'app/entities/autorizacion/service/autorizacion.service';
 
@@ -23,6 +25,7 @@ describe('Orden Management Update Component', () => {
   let ordenFormService: OrdenFormService;
   let ordenService: OrdenService;
   let clienteService: ClienteService;
+  let proveedorService: ProveedorService;
   let autorizacionService: AutorizacionService;
 
   beforeEach(() => {
@@ -47,6 +50,7 @@ describe('Orden Management Update Component', () => {
     ordenFormService = TestBed.inject(OrdenFormService);
     ordenService = TestBed.inject(OrdenService);
     clienteService = TestBed.inject(ClienteService);
+    proveedorService = TestBed.inject(ProveedorService);
     autorizacionService = TestBed.inject(AutorizacionService);
 
     comp = fixture.componentInstance;
@@ -75,6 +79,28 @@ describe('Orden Management Update Component', () => {
       expect(comp.clientesSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call Proveedor query and add missing value', () => {
+      const orden: IOrden = { id: 'CBA' };
+      const proveedor: IProveedor = { id: '38abfe0e-d797-4549-a071-3a9c23b34685' };
+      orden.proveedor = proveedor;
+
+      const proveedorCollection: IProveedor[] = [{ id: '21f39181-12c4-4fdd-adc1-a99c70b80caa' }];
+      jest.spyOn(proveedorService, 'query').mockReturnValue(of(new HttpResponse({ body: proveedorCollection })));
+      const additionalProveedors = [proveedor];
+      const expectedCollection: IProveedor[] = [...additionalProveedors, ...proveedorCollection];
+      jest.spyOn(proveedorService, 'addProveedorToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ orden });
+      comp.ngOnInit();
+
+      expect(proveedorService.query).toHaveBeenCalled();
+      expect(proveedorService.addProveedorToCollectionIfMissing).toHaveBeenCalledWith(
+        proveedorCollection,
+        ...additionalProveedors.map(expect.objectContaining)
+      );
+      expect(comp.proveedorsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call Autorizacion query and add missing value', () => {
       const orden: IOrden = { id: 'CBA' };
       const autorizacion: IAutorizacion = { id: '12593e6e-8a24-41d1-9d6f-662d29fbdc7e' };
@@ -101,6 +127,8 @@ describe('Orden Management Update Component', () => {
       const orden: IOrden = { id: 'CBA' };
       const cliente: ICliente = { id: '59410a40-d345-4a77-9eb3-20eefbc30f69' };
       orden.cliente = cliente;
+      const proveedor: IProveedor = { id: '8da29751-94fb-450f-aa97-d51eddf868a7' };
+      orden.proveedor = proveedor;
       const autorizacion: IAutorizacion = { id: '8974471c-d5e2-4717-9b31-0a04ac8fc54e' };
       orden.autorizacion = autorizacion;
 
@@ -108,6 +136,7 @@ describe('Orden Management Update Component', () => {
       comp.ngOnInit();
 
       expect(comp.clientesSharedCollection).toContain(cliente);
+      expect(comp.proveedorsSharedCollection).toContain(proveedor);
       expect(comp.autorizacionsSharedCollection).toContain(autorizacion);
       expect(comp.orden).toEqual(orden);
     });
@@ -189,6 +218,16 @@ describe('Orden Management Update Component', () => {
         jest.spyOn(clienteService, 'compareCliente');
         comp.compareCliente(entity, entity2);
         expect(clienteService.compareCliente).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareProveedor', () => {
+      it('Should forward to proveedorService', () => {
+        const entity = { id: 'ABC' };
+        const entity2 = { id: 'CBA' };
+        jest.spyOn(proveedorService, 'compareProveedor');
+        comp.compareProveedor(entity, entity2);
+        expect(proveedorService.compareProveedor).toHaveBeenCalledWith(entity, entity2);
       });
     });
 

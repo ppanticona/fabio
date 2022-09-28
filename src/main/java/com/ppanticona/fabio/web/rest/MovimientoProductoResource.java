@@ -235,4 +235,17 @@ public class MovimientoProductoResource {
         data.append(result);
         return ResponseEntity.ok().body(data.toString());
     }
+
+    @PostMapping("/movimiento-productos/registrarSalida")
+    public ResponseEntity<String> registrarSalida(@Valid @RequestBody Map<String, Object> Mapeo) throws URISyntaxException {
+        log.debug("REST request to registrarSalida : {}", Mapeo);
+
+        StringBuffer data = new StringBuffer();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+
+        String result = movimientoProductoService.registrarSalida(Mapeo);
+        data.append(result);
+        return ResponseEntity.ok().body(data.toString());
+    }
 }

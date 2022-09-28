@@ -76,6 +76,12 @@
             <a [routerLink]="['/cliente', orden.cliente.id, 'view']">{{ orden.cliente?.id }}</a>
           </div>
         </dd>
+        <dt><span>Proveedor</span></dt>
+        <dd>
+          <div *ngIf="orden.proveedor">
+            <a [routerLink]="['/proveedor', orden.proveedor.id, 'view']">{{ orden.proveedor?.id }}</a>
+          </div>
+        </dd>
         <dt><span>Autorizacion</span></dt>
         <dd>
           <div *ngIf="orden.autorizacion">

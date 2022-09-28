@@ -5,14 +5,16 @@ import com.ppanticona.fabio.repository.OrdenRepository;
 import com.ppanticona.fabio.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -184,12 +186,37 @@ public class OrdenResource {
         return ordenRepository.findAll();
     }
 
-    /**
-     * {@code GET  /ordens/:id} : get the "id" orden.
-     *
-     * @param id the id of the orden to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the orden, or with status {@code 404 (Not Found)}.
-     */
+    @GetMapping("/ordenesPorTipoOrden/{tipOrden}")
+    public ResponseEntity<Map<String, Object>> getAllOrdenByTipOrden(
+        @PathVariable(value = "tipOrden", required = true) final String tipOrden,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        log.debug("REST request to get all Productos por regex descripcion con inddel false y estado 01 ");
+
+        try {
+            List<Orden> ordenes = new ArrayList<Orden>();
+            Pageable paging = PageRequest.of(page, size);
+
+            Page<Orden> pageOrdenes = ordenRepository.findAllByTipOrdenAndEstadoAndIndDelIsFalse(tipOrden, "01", paging);
+            ordenes = pageOrdenes.getContent();
+
+            if (ordenes.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("ordenes", ordenes);
+            response.put("currentPage", pageOrdenes.getNumber());
+            response.put("totalItems", pageOrdenes.getTotalElements());
+            response.put("totalPages", pageOrdenes.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/ordens/{id}")
     public ResponseEntity<Orden> getOrden(@PathVariable String id) {
         log.debug("REST request to get Orden : {}", id);
